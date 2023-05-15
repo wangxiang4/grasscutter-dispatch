@@ -1,5 +1,7 @@
-version = "1.0.0"
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 group = "com.tianli.auth"
+version = "1.0.0"
 description = "for grasscutter authorization dispatch"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
@@ -13,8 +15,11 @@ val hutoolVersion:String by extra { "5.8.18" }
 val mybatisVersion:String by extra { "3.0.0" }
 val lombokVersion:String by extra { "1.18.26" }
 val mysqlVersion:String by extra { "8.0.33" }
-// todo: testings
-val appName:String by extra { rootProject.name }
+
+application {
+	// define the main class for the application
+	mainClass.set("com.tianli.auth.grasscutterauth.GrasscutterAuthApplication")
+}
 
 repositories {
 	mavenCentral()
@@ -24,6 +29,10 @@ repositories {
 }
 
 dependencies {
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	implementation("org.springframework.boot:spring-boot-starter-mustache")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -39,16 +48,25 @@ dependencies {
 
 plugins {
 	java
+	application
 	id("org.springframework.boot") version "3.0.6"
 	id("io.spring.dependency-management") version "1.1.0"
+	kotlin("jvm") version "1.7.22"
+	kotlin("plugin.spring") version "1.7.22"
 }
 
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
-tasks.processResources {
-	filesMatching("application.yml") {
-		expand(project.properties)
+tasks.withType<ProcessResources> {
+	include("**/*.yml")
+	expand(project.properties)
+}
+
+tasks.withType<KotlinCompile> {
+	kotlinOptions {
+		freeCompilerArgs = listOf("-Xjsr305=strict")
+		jvmTarget = "17"
 	}
 }

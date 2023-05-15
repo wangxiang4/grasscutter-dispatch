@@ -2,8 +2,7 @@ server:
   port: 6666
 spring:
   application:
-    # todo: temp
-    name: grasscutter-auth
+    name: ${rootProject.name}
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
