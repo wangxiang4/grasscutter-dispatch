@@ -60,8 +60,9 @@ tasks.withType<Test> {
 }
 
 tasks.withType<ProcessResources> {
-	include("**/*.yml")
-	expand(project.properties)
+	filesMatching("**/*.yml") {
+		expand(project.properties)
+	}
 }
 
 tasks.withType<KotlinCompile> {
