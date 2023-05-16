@@ -5,6 +5,4 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @MapperScan("com.tianli.auth.grasscutterauth.mapper")
-public class MyBatisConfig {
-
-}
+class MyBatisConfig

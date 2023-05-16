@@ -1,44 +1,4 @@
 spring:
   datasource:
+    type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    # ref: https://github.com/alibaba/druid/tree/5385db0fe67e1171b333bdd1345ba429dd4ba981/druid-spring-boot-starter
-    druid:
-      db-type: mysql
-      use-global-data-source-stat: true
-      validation-query: select 1
-      test-on-borrow: false
-      test-while-idle: true
-      test-on-return: false
-      max-wait: 60000
-      max-active: 100
-      min-idle: 2
-      initial-size: 1
-      keep-alive: true
-      min-evictable-idle-time-millis: 30000
-      time-between-eviction-runs-millis: 60000
-      async-init: true
-      filter:
-        stat:
-          enabled: true
-          merge-sql: false
-          log-slow-sql: true
-          slow-sql-millis: 5000
-        wall:
-          enabled: true
-          config:
-            condition-double-const-allow: true
-            multi-statement-allow: true
-      web-stat-filter:
-        enabled: true
-        url-pattern: /*
-        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
-        session-stat-enable: true
-        profile-enable: true
-        principal-session-name: session_user_key
-      stat-view-servlet:
-        enabled: true
-        url-pattern: /druid/*
-        login-username: tianli
-        login-password: tianli123
-        allow: 127.0.0.1
-        reset-enable: false

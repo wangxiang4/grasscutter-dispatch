@@ -4,11 +4,6 @@ spring:
   profiles:
     include: base,jdbc
   datasource:
-    druid:
-      web-stat-filter:
-        enabled: false
-      stat-view-servlet:
-        enabled: false
     username: \${MYSQL_USER:root}
     password: \${MYSQL_PWD:root}
     url: jdbc:mysql://\${MYSQL_HOST:127.0.0.1}:\${MYSQL_PORT:3306}/\${MYSQL_DB:grasscutter_auth}?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
