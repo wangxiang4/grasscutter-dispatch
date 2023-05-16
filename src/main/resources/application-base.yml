@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: ${rootProject.name}
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  config-location: classpath:mybatis/mybatis-config.xml
+  type-aliases-package: com.tianli.auth.grasscutterauth.domain
+
+logging:
+  level:
+    com.tianli.auth.grasscutterauth: debug
+    org.springframework: WARN
