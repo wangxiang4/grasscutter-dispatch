@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # ref: https://github.com/brettwooldridge/HikariCP#gear-configuration-knobs-baby
+    hikari:
+      connection-test-query: SELECT 1
+      pool-name: ${rootProject.name}
+      maximum-pool-size: 100
+      minimum-idle: 2
+      initialization-fail-timeout: 5000

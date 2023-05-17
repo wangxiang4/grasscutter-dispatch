@@ -2,7 +2,7 @@ server:
   port: 8080
 spring:
   profiles:
-    include: base,jdbc
+    include: base,hikaricp
   datasource:
     username: \${MYSQL_USER:root}
     password: \${MYSQL_PWD:root}
