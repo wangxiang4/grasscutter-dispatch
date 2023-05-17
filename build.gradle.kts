@@ -15,6 +15,7 @@ val hutoolVersion:String by extra { "5.8.18" }
 val mybatisVersion:String by extra { "3.0.0" }
 val lombokVersion:String by extra { "1.18.26" }
 val mysqlVersion:String by extra { "8.0.33" }
+val okhttpVersion:String by extra { "4.11.0" }
 
 application {
 	// define the main class for the application
@@ -38,6 +39,7 @@ dependencies {
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
+	implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
 	implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisVersion")
 	implementation("cn.hutool:hutool-core:$hutoolVersion")
 	runtimeOnly("com.mysql:mysql-connector-j:$mysqlVersion")

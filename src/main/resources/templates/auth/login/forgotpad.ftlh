@@ -5,6 +5,8 @@
 	<title>找回密码</title>
 </head>
 <body>
-
+	<h1>
+		测试
+	</h1>
 </body>
 </html>

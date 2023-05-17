@@ -6,14 +6,6 @@ import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
 
-/**
- *<p>
- * 用户信息表
- *</p>
- *
- * @Author: entfrm开发团队-王翔
- * @Date: 2022/2/24
- */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
