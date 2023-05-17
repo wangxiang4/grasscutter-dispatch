@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 @RequiredArgsConstructor
 class LoginServiceImpl(private val loginMapper: LoginMapper): LoginService {
 
-    override fun getUserById(id: Long?): User? {
+    override fun getUserById(id: Long?): User {
         return loginMapper.getUserById(id)
     }
 

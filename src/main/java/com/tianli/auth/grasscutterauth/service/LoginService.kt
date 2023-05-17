@@ -4,6 +4,6 @@ import com.tianli.auth.grasscutterauth.domain.User
 
 interface LoginService {
 
-    fun getUserById(id: Long?): User?
+    fun getUserById(id: Long?): User
 
 }
