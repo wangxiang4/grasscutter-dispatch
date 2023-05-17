@@ -1,10 +1,12 @@
 package com.tianli.auth.grasscutterauth.config
 
+import cn.hutool.core.io.resource.ClassPathResource
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.security.KeyStore
+import java.security.cert.CertificateFactory
 import java.util.concurrent.TimeUnit
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
@@ -58,18 +60,11 @@ class OkHttpConfig {
 
     private fun loadTrustStore(): KeyStore {
         val trustStore = KeyStore.getInstance(KeyStore.getDefaultType())
-
-
-        /*var pemFilePath = "/Users/wangxiang/IdeaProjects/my/grasscutter-auth/src/main/resources/ssl/auth_private-key.der"
-        val pemInputStream: InputStream = FileInputStream(pemFilePath)
-        CertificateFactory.getInstance("X.509").generateCertificate(pemInputStream)
+        val pemInputStream = ClassPathResource("ssl/cert.pem").stream
+        val certificate = CertificateFactory.getInstance("X.509").generateCertificate(pemInputStream)
         pemInputStream.close()
-
-
-        val resource: InputStream = ClassPathResource("ssl/ca.pem").stream
         trustStore.load(null)
-        CertificateFactory.getInstance("X.509").generateCertificate(resource)
-        trustStore.setCertificateEntry("grasscutter-public", CertificateFactory.getInstance("X.509").generateCertificate(resource))*/
+        trustStore.setCertificateEntry("grasscutter-public", certificate)
         return trustStore
     }
 }
