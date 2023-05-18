@@ -1,3 +1,4 @@
+<link rel="icon" href="/image/favicon.ico">
 <script src="/js/axios.min.js"></script>
 <script src="/js/tailwindcss.min.js"></script>
 <script src="/js/vue.global.min.js"></script>
