@@ -3,13 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>注册账户</title>
-	<#include "../../config/head.ftl">
+	<#include "../../common/head.ftlh">
 </head>
 <body>
-
 	<h1>
-	测试
+		待开发
 	</h1>
-
 </body>
 </html>
