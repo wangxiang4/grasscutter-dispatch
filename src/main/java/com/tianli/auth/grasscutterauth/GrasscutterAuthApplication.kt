@@ -4,8 +4,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class GrasscutterAuthApplication
+class GrasscutterAuthApplication {
 
-fun main(args: Array<String>) {
-    runApplication<GrasscutterAuthApplication>(*args)
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            runApplication<GrasscutterAuthApplication>(*args)
+        }
+    }
+
 }
+
+

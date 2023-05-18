@@ -27,3 +27,8 @@ These additional references should also help you:
 
 * [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
 
+### Distribution Boot
+
+```shell
+./grasscutter-auth -Xmx8g -Xms4g -Djava.security.egd=file:/dev/./urandom
+```

@@ -1,7 +1,6 @@
 package com.tianli.auth.grasscutterauth.mapper;
-
-import com.tianli.auth.grasscutterauth.domain.User;
-import org.apache.ibatis.annotations.Select;
+import com.tianli.auth.grasscutterauth.domain.User
+import org.apache.ibatis.annotations.Select
 
 interface LoginMapper {
 
