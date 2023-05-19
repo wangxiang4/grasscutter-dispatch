@@ -7,16 +7,14 @@
 </head>
 <body>
 <div id="app">
-    <div class="container mx-auto px-14 object-center">
-        <div class="grid grid-rows-5 gap-3 grid-flow-col mt-32">
-            <input class="bg-blue-500 rounded" type="username" placeholder="username"/>
-            <input class="bg-blue-500 rounded" type="password" placeholder="password"/>
-            <button class="bg-blue-500 rounded h-10">登陆</button>
-        </div>
-    </div>
+    <a-button type="primary">Primary Button</a-button>
 </div>
 <script>
   Vue.createApp({
+    components: {
+      // 注册 Ant Design Vue 组件
+      'a-button': antd.Button
+    },
     setup() {
       const data = Vue.reactive({ message: 'Hello, Vue 3!' })
       axiosInstance.get('/auth/login/get/1510539584287346688').then(resp => {
@@ -30,5 +28,10 @@
     }
   }).mount('#app')
 </script>
+<style>
+#app{
+
+}
+</style>
 </body>
 </html>
