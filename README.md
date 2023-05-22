@@ -30,5 +30,7 @@ These additional references should also help you:
 ### Distribution Boot
 
 ```shell
-./grasscutter-auth -Xmx8g -Xms4g -Djava.security.egd=file:/dev/./urandom
+export JAVA_OPTS="-Xmx8g -Xms4g -Dspring.profiles.active=prod -Djava.security.egd=file:/dev/./urandom"
+
+./grasscutter-auth
 ```

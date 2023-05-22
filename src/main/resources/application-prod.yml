@@ -1,8 +1,8 @@
 server:
   port: 80
 spring:
-  profiles:
-    include: base,hikaricp
+  config:
+    import: application-base.yml,application-druid.yml
   datasource:
     username: \${MYSQL_USER:root}
     password: \${MYSQL_PWD:root}
