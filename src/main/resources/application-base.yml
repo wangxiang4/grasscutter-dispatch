@@ -4,6 +4,16 @@ spring:
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
+  mail:
+    host: smtp.office365.com
+    port: 587
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+    username: admin@dragondream.onmicrosoft.com
+    password: CASKSme123
 
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
