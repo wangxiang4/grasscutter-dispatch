@@ -1,8 +1,8 @@
-package com.tianli.auth.grasscutterauth.service.impl
+package com.tianli.dispatch.service.impl
 
-import com.tianli.auth.grasscutterauth.domain.User
-import com.tianli.auth.grasscutterauth.mapper.LoginMapper
-import com.tianli.auth.grasscutterauth.service.LoginService
+import com.tianli.dispatch.domain.User
+import com.tianli.dispatch.mapper.LoginMapper
+import com.tianli.dispatch.service.LoginService
 import freemarker.template.Configuration
 import lombok.RequiredArgsConstructor
 import org.springframework.mail.javamail.JavaMailSender

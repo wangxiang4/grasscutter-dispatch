@@ -1,4 +1,4 @@
-package com.tianli.auth.grasscutterauth.vo
+package com.tianli.dispatch.vo
 
 data class CaptchaValidationVo(
     var id: String?= null,

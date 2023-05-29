@@ -1,4 +1,4 @@
-package com.tianli.auth.grasscutterauth.enums;
+package com.tianli.dispatch.enums;
 
 enum class LoginTypeEnum(val value: Int) {
 

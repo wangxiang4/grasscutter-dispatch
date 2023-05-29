@@ -1,1 +1,1 @@
-rootProject.name = "grasscutter-auth"
+rootProject.name = "grasscutter-dispatch"

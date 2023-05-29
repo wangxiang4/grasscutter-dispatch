@@ -1,4 +1,4 @@
-package com.tianli.auth.grasscutterauth.domain;
+package com.tianli.dispatch.domain;
 
 import java.time.LocalDateTime
 

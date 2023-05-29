@@ -18,9 +18,9 @@ spring:
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
   config-location: classpath:mybatis/mybatis-config.xml
-  type-aliases-package: com.tianli.auth.grasscutterauth.domain
+  type-aliases-package: com.tianli.dispatch.domain
 
 logging:
   level:
-    com.tianli.auth.grasscutterauth: debug
+    com.tianli.dispatch: debug
     org.springframework: WARN

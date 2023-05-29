@@ -1,4 +1,4 @@
-package com.tianli.auth.grasscutterauth.config
+package com.tianli.dispatch.config
 
 import cn.hutool.core.io.resource.ClassPathResource
 import okhttp3.ConnectionPool

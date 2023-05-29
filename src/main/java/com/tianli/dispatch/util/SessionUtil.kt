@@ -1,12 +1,12 @@
-package com.tianli.auth.grasscutterauth.util;
+package com.tianli.dispatch.util;
 
-import com.tianli.auth.grasscutterauth.vo.CaptchaValidationVo
+import com.tianli.dispatch.vo.CaptchaValidationVo
 import lombok.experimental.UtilityClass
 import org.springframework.web.server.WebSession
 
 @UtilityClass
 class SessionUtil {
-   
+
    fun setCodeSession(captchaValidationVo: CaptchaValidationVo, webSession: WebSession) {
 
    }

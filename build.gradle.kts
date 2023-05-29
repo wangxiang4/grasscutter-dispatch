@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-group = "com.tianli.auth"
+group = "com.tianli.dispatch"
 version = "1.0.0"
 description = "for grasscutter authorization dispatch"
 java.sourceCompatibility = JavaVersion.VERSION_17
@@ -19,7 +19,7 @@ val okhttpVersion:String by extra { "4.11.0" }
 
 application {
 	// define the main class for the application
-	mainClass.set("com.tianli.auth.grasscutterauth.GrasscutterAuthApplication")
+	mainClass.set("com.tianli.dispatch.GrasscutterDispatchApplication")
 }
 
 repositories {

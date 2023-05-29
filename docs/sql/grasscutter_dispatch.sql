@@ -5,23 +5,23 @@
  Source Server Type    : MySQL
  Source Server Version : 50739 (5.7.39)
  Source Host           : localhost:3306
- Source Schema         : grasscutter_auth
+ Source Schema         : grasscutter_dispatch
 
  Target Server Type    : MySQL
  Target Server Version : 50739 (5.7.39)
  File Encoding         : 65001
 
- Date: 22/05/2023 13:01:41
+ Date: 29/05/2023 22:58:52
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for auth_user
+-- Table structure for sys_user
 -- ----------------------------
-DROP TABLE IF EXISTS `auth_user`;
-CREATE TABLE `auth_user` (
+DROP TABLE IF EXISTS `sys_user`;
+CREATE TABLE `sys_user` (
   `id` varchar(32) NOT NULL,
   `user_name` varchar(30) DEFAULT NULL COMMENT '用户账号',
   `nick_name` varchar(30) DEFAULT NULL COMMENT '用户昵称',
@@ -45,10 +45,10 @@ CREATE TABLE `auth_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户信息表';
 
 -- ----------------------------
--- Records of auth_user
+-- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `auth_user` (`id`, `user_name`, `nick_name`, `password`, `email`, `phone`, `sex`, `avatar`, `status`, `login_ip`, `login_time`, `create_by_id`, `create_by_name`, `create_time`, `update_by_id`, `update_by_name`, `update_time`, `remarks`, `del_flag`) VALUES ('1510539584287346688', 'admin', '管理员', '$2a$10$jvVGvS6QOtD.x3UwuZRSgepL.zKul6NRg2kVnRVDUdeN2FErIQgNy', '111@qq.com', '15611111111', '0', '', '0', '', NULL, '1510539584287346688', 'admin', '2020-03-13 20:56:44', '1510539584287346688', 'admin', '2022-08-26 15:26:17', '全栈工程师', '0');
+INSERT INTO `sys_user` (`id`, `user_name`, `nick_name`, `password`, `email`, `phone`, `sex`, `avatar`, `status`, `login_ip`, `login_time`, `create_by_id`, `create_by_name`, `create_time`, `update_by_id`, `update_by_name`, `update_time`, `remarks`, `del_flag`) VALUES ('1510539584287346688', 'admin', '管理员', '$2a$10$jvVGvS6QOtD.x3UwuZRSgepL.zKul6NRg2kVnRVDUdeN2FErIQgNy', '111@qq.com', '15611111111', '0', '', '0', '', NULL, '1510539584287346688', 'admin', '2020-03-13 20:56:44', '1510539584287346688', 'admin', '2022-08-26 15:26:17', '全栈工程师', '0');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

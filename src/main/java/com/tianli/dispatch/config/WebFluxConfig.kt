@@ -1,4 +1,4 @@
-package com.tianli.auth.grasscutterauth.config;
+package com.tianli.dispatch.config;
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -26,7 +26,7 @@ class WebFluxConfig {
 
     private fun handleRequest(request: ServerRequest): Mono<ServerResponse> {
         val model = mutableMapOf<String, Any>()
-        model["name"] = "grasscutter-auth"
+        model["name"] = "grasscutter-dispatch"
         model["version"] = "1.0.0"
         model["license"] = "MIT"
         model["description"] = "for grasscutter authorization dispatch"
