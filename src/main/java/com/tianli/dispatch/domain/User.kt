@@ -1,4 +1,4 @@
-package com.tianli.dispatch.domain;
+package com.tianli.dispatch.domain
 
 import java.time.LocalDateTime
 

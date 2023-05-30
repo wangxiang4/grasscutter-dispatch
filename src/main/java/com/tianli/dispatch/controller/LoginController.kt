@@ -1,4 +1,4 @@
-package com.tianli.dispatch.controller;
+package com.tianli.dispatch.controller
 
 import com.tianli.dispatch.service.LoginService
 import com.tianli.dispatch.vo.R

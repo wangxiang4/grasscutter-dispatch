@@ -7,13 +7,18 @@ import com.tianli.dispatch.vo.R
 import freemarker.template.Configuration
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.MimeMessageHelper
+import org.springframework.scheduling.TaskScheduler
 import org.springframework.stereotype.Service
 import org.springframework.web.server.WebSession
 import java.io.StringWriter
+import java.time.Duration
+import java.time.Instant
+
 
 @Service
 class LoginServiceImpl(private val loginMapper: LoginMapper,
-                       private val javaMailSender: JavaMailSender
+                       private val javaMailSender: JavaMailSender,
+                       private val taskScheduler: TaskScheduler
 ): LoginService {
 
 
@@ -33,12 +38,11 @@ class LoginServiceImpl(private val loginMapper: LoginMapper,
         helper.setSubject("%s是你的原神验证码".format(model["randomCaptcha"]))
         helper.setText(stringWriter.toString(), true)
         javaMailSender.send(message)
-        //
-
-
-
-
-        TODO("Not yet implemented")
+        // handle session captcha
+        webSession.attributes[recipient] = code
+        val delay = Duration.ofSeconds(60)
+        taskScheduler.schedule({ webSession.attributes.remove(recipient) }, Instant.now().plus(delay))
+        return R.ok(true)
     }
 
 

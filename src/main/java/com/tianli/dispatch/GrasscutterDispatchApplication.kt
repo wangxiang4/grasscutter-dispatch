@@ -1,4 +1,4 @@
-package com.tianli.dispatch;
+package com.tianli.dispatch
 
 import mu.KotlinLogging
 import org.springframework.boot.autoconfigure.SpringBootApplication

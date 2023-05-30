@@ -1,4 +1,4 @@
-package com.tianli.dispatch.enums;
+package com.tianli.dispatch.enums
 
 enum class LoginTypeEnum(val value: Int) {
 
