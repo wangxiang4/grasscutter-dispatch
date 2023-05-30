@@ -1,5 +1,6 @@
 package com.tianli.dispatch.service.impl
 
+import cn.hutool.core.util.ObjectUtil
 import cn.hutool.core.util.RandomUtil
 import com.tianli.dispatch.mapper.LoginMapper
 import com.tianli.dispatch.service.LoginService
@@ -23,28 +24,30 @@ class LoginServiceImpl(private val loginMapper: LoginMapper,
 
 
     override fun sendMailCaptcha(recipient: String, webSession: WebSession): R<Boolean> {
-        val configuration = Configuration(Configuration.VERSION_2_3_32)
-        configuration.setClassForTemplateLoading(this::class.java, "/templates")
-        val template = configuration.getTemplate("mail/captcha.ftlh")
-        val code = RandomUtil.randomNumbers(6)
-        val stringWriter = StringWriter()
-        val model = mutableMapOf<String, Any>()
-        model["code"] = code
-        template.process(model, stringWriter)
-        val message = javaMailSender.createMimeMessage()
-        val helper = MimeMessageHelper(message, true)
-        helper.setFrom("no-reply@account.casks.me")
-        helper.setTo(recipient)
-        helper.setSubject("%s是你的原神验证码".format(model["randomCaptcha"]))
-        helper.setText(stringWriter.toString(), true)
-        javaMailSender.send(message)
-        // handle session captcha
-        webSession.attributes[recipient] = code
-        val delay = Duration.ofSeconds(60)
-        taskScheduler.schedule({ webSession.attributes.remove(recipient) }, Instant.now().plus(delay))
-        return R.ok(true)
+        if (ObjectUtil.isEmpty(webSession.attributes[recipient])) {
+            val configuration = Configuration(Configuration.VERSION_2_3_32)
+            configuration.setClassForTemplateLoading(this::class.java, "/templates")
+            val template = configuration.getTemplate("mail/captcha.ftlh")
+            val code = RandomUtil.randomNumbers(6)
+            val stringWriter = StringWriter()
+            val model = mutableMapOf<String, Any>()
+            model["code"] = code
+            template.process(model, stringWriter)
+            val message = javaMailSender.createMimeMessage()
+            val helper = MimeMessageHelper(message, true)
+            helper.setFrom("no-reply@account.casks.me")
+            helper.setTo(recipient)
+            helper.setSubject("%s是你的原神验证码".format(model["randomCaptcha"]))
+            helper.setText(stringWriter.toString(), true)
+            javaMailSender.send(message)
+            // handle storage session captcha
+            webSession.attributes[recipient] = code
+            val delay = Duration.ofSeconds(60)
+            taskScheduler.schedule({ webSession.attributes.remove(recipient) }, Instant.now().plus(delay))
+            return R.ok(true)
+        }
+        return R.error(false, "验证码已发送，请过一会儿再请求")
     }
-
 
 
 }

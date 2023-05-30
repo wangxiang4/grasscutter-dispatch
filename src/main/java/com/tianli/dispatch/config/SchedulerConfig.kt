@@ -18,7 +18,6 @@ class SchedulerConfig(private val environment:ConfigurableEnvironment){
         val name = environment.getProperty("spring.application.name")
         val threadPoolTaskScheduler = ThreadPoolTaskScheduler()
         threadPoolTaskScheduler.poolSize = 10
-        threadPoolTaskScheduler.scheduledThreadPoolExecutor
         threadPoolTaskScheduler.setThreadNamePrefix("$name-")
         threadPoolTaskScheduler.setRejectedExecutionHandler(ThreadPoolExecutor.CallerRunsPolicy())
         threadPoolTaskScheduler.initialize()
