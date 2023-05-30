@@ -12,7 +12,7 @@ spring:
         smtp:
           starttls:
             enable: true
-    username: admin@dragondream.onmicrosoft.com
+    username: no-reply@account.casks.me
     password: CASKSme123
 
 mybatis:

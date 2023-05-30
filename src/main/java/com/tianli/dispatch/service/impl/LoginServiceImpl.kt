@@ -37,7 +37,7 @@ class LoginServiceImpl(private val loginMapper: LoginMapper,
             val helper = MimeMessageHelper(message, true)
             helper.setFrom("no-reply@account.casks.me")
             helper.setTo(recipient)
-            helper.setSubject("%s是你的原神验证码".format(model["randomCaptcha"]))
+            helper.setSubject("%s是你的原神验证码".format(code))
             helper.setText(stringWriter.toString(), true)
             javaMailSender.send(message)
             // handle storage session captcha
