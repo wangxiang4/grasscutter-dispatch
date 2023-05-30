@@ -1,5 +1,6 @@
 package com.tianli.dispatch;
 
+import mu.KotlinLogging
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
@@ -15,4 +16,4 @@ class GrasscutterDispatchApplication {
 
 }
 
-
+val logger = KotlinLogging.logger("com.tianli.dispatch")

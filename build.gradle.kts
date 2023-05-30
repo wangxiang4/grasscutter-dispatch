@@ -16,6 +16,7 @@ val mybatisVersion:String by extra { "3.0.0" }
 val lombokVersion:String by extra { "1.18.26" }
 val mysqlVersion:String by extra { "8.0.33" }
 val okhttpVersion:String by extra { "4.11.0" }
+val kLogVersion:String by extra { "3.0.5" }
 
 application {
 	// define the main class for the application
@@ -46,7 +47,9 @@ dependencies {
 	runtimeOnly("com.mysql:mysql-connector-j:$mysqlVersion")
 	compileOnly("org.projectlombok:lombok:$lombokVersion")
 	annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+	implementation("io.github.microutils:kotlin-logging-jvm:$kLogVersion")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
+
 }
 
 plugins {
