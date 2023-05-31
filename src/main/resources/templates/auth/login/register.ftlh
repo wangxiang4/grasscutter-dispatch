@@ -44,7 +44,7 @@
 					/>
 				</a-form-item>
 				<a-form-item name="checkNick" v-bind="formTailLayout">
-					<a-checkbox v-model:checked="">阅读并同意 </a-checkbox>
+					<a-checkbox v-model:checked="">阅读并同意</a-checkbox>
 					<a @click="() => { data.privacyVisible = true }">用户协议、隐私政策</a>
 				</a-form-item>
 				<a-form-item v-bind="formTailLayout">
@@ -56,9 +56,7 @@
 	<a-modal v-model:visible="data.privacyVisible"
 					 width="620px"
 					 title="隐私政策"
-					 ok-text="同意"
-					 cancel-text="拒绝"
-					 @ok="handleOk"
+					 :footer="false"
 	>
 		<#include "*/common/policy.ftlh">
 	</a-modal>
