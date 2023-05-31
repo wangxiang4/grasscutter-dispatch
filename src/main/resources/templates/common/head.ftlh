@@ -12,6 +12,34 @@
 <script src="/js/antd.min.js"></script>
 <script src="/js/axios.min.js"></script>
 <script src="/js/tailwindcss.min.js"></script>
+<style>
+html,
+body {
+    width: 100%;
+    height: inherit !important;
+    overflow: visible;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(144, 147, 153, 0.3);
+    border-radius: 2px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #b6b7b9;
+}
+</style>
 <script>
   tailwind.config = {
     corePlugins: {
