@@ -29,7 +29,13 @@
 					<a-input v-model:value="data.formData.account"
 					         size="large"
 					         placeholder="验证码"
-					/>
+					>
+						<template #suffix>
+							<a-divider type="vertical"></a-divider>
+							<a-button v-if="data.timerRuning" type="link">{{data.timeInterval}}</a-button>
+							<a-button v-else type="link" @click="handleGetMailCaptcha">发送</a-button>
+						</template>
+					</a-input>
 				</a-form-item>
 				<a-form-item>
 					<a-input v-model:value="data.formData.account"
@@ -75,15 +81,36 @@
 			AModal: antd.Modal,
 			ATypography: antd.Typography,
 			ATypographyParagraph: antd.Typography.Paragraph,
-			ATypographyText: antd.Typography.Text
+			ATypographyText: antd.Typography.Text,
+			ADivider: antd.Divider
     },
     setup() {
       const data = Vue.reactive({
         formData: {
           account: ''
         },
-				privacyVisible: false
+				privacyVisible: false,
+				timeInterval: 60,
+				timer: null,
+				timerRuning: false
       })
+
+			async function handleGetMailCaptcha() {
+				const TIME_COUNT = 60;
+				if (!data.timer) {
+					data.timeInterval = TIME_COUNT;
+					data.timerRuning = true;
+					data.timer = setInterval(() => {
+						if (data.timeInterval > 0 && data.timeInterval <= TIME_COUNT) {
+							data.timeInterval = data.timeInterval - 1;
+						} else {
+							data.timerRuning = false;
+							clearInterval(data.timer);
+							data.timer = null;
+						}
+					}, 1000);
+				}
+			}
 
       axiosInstance.get('/auth/login/get/1510539584287346688').then(resp => {
         console.log(resp)
@@ -92,7 +119,8 @@
       });
 
       return {
-        data
+        data,
+				handleGetMailCaptcha
       }
     }
   }).mount('#app')
