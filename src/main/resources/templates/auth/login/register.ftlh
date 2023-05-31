@@ -44,7 +44,8 @@
 					/>
 				</a-form-item>
 				<a-form-item name="checkNick" v-bind="formTailLayout">
-					<a-checkbox v-model:checked="">阅读并同意 <a>用户协议、隐私政策</a></a-checkbox>
+					<a-checkbox v-model:checked="">阅读并同意 </a-checkbox>
+					<a @click="() => { data.privacyVisible = true }">用户协议、隐私政策</a>
 				</a-form-item>
 				<a-form-item v-bind="formTailLayout">
 					<a-button type="primary" class="w-full" size="large" @click="onCheck">注册</a-button>
@@ -52,6 +53,15 @@
 			</a-form>
 		</a-content>
 	</a-layout>
+	<a-modal v-model:visible="data.privacyVisible"
+					 width="620px"
+					 title="隐私政策"
+					 ok-text="同意"
+					 cancel-text="拒绝"
+					 @ok="handleOk"
+	>
+		<#include "*/common/policy.ftlh">
+	</a-modal>
 </div>
 <script>
   Vue.createApp({
@@ -63,13 +73,18 @@
       AForm: antd.Form,
       AFormItem: antd.FormItem,
       AInput: antd.Input,
-	    ACheckbox: antd.Checkbox
+	    ACheckbox: antd.Checkbox,
+			AModal: antd.Modal,
+			ATypography: antd.Typography,
+			ATypographyParagraph: antd.Typography.Paragraph,
+			ATypographyText: antd.Typography.Text
     },
     setup() {
       const data = Vue.reactive({
         formData: {
           account: ''
-        }
+        },
+				privacyVisible: false
       })
 
       axiosInstance.get('/auth/login/get/1510539584287346688').then(resp => {
@@ -77,7 +92,6 @@
       }).catch(function (error) {
         console.error(error);
       });
-
 
       return {
         data
