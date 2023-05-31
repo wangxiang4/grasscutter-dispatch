@@ -103,8 +103,9 @@
 }
 
 .ant-btn-lg {
-	color: #66A3D9;
 	border-radius: 5px;
+	height: 50px;
+	font-size: 18px;
 }
 
 .ant-form-item {
