@@ -105,11 +105,11 @@
         },
 				rulesRef: {
 					email: [
-						{ required: true, whitespace: true, type: 'email',  message: '邮箱格式不正确 🥺' }
+						{ required: true, whitespace: true, type: 'email',  message: '邮箱格式不正确 😱' }
 					],
 					code: [
-						{ required: true, whitespace: true, message: '验证码必填 😮' },
-						{ pattern: RegExp('^\\d{6}$'), message: '验证码格式不正确 😤' }
+						{ required: true, whitespace: true, message: '验证码必填 🤯' },
+						{ pattern: RegExp('^\\d{6}$'), message: '验证码格式不正确 🤕' }
 					],
 					password: [
 						{ required: true, whitespace: true, pattern: RegExp('^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[^\\da-zA-Z]).{8,30}$'), message: '密码格式不正确 😰' }
