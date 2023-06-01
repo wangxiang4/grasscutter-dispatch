@@ -32,8 +32,8 @@
 					>
 						<template #suffix>
 							<a-divider type="vertical"></a-divider>
-							<a-button v-if="data.timerRuning" type="link">{{data.timeInterval}}</a-button>
-							<a-button v-else type="link" @click="handleGetMailCaptcha">发送</a-button>
+							<a-button v-if="data.timerRuning" class="w-16" type="link">{{data.timeInterval}}</a-button>
+							<a-button v-else type="link" class="w-16" @click="handleGetMailCaptcha">发送</a-button>
 						</template>
 					</a-input>
 				</a-form-item>
@@ -112,7 +112,7 @@
 				}
 			}
 
-      axiosInstance.get('/auth/login/get/1510539584287346688').then(resp => {
+      axiosInstance.get('').then(resp => {
         console.log(resp)
       }).catch(function (error) {
         console.error(error);

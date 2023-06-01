@@ -1,3 +1,3 @@
 package com.tianli.dispatch.dto
 
-class LoginDto
+class AuthDto

@@ -60,7 +60,7 @@ class OkHttpConfig {
 
     private fun loadTrustStore(): KeyStore {
         val trustStore = KeyStore.getInstance(KeyStore.getDefaultType())
-        val pemInputStream = ClassPathResource("ssl/cert.pem").stream
+        val pemInputStream = ClassPathResource("secret/cert.pem").stream
         val certificate = CertificateFactory.getInstance("X.509").generateCertificate(pemInputStream)
         pemInputStream.close()
         trustStore.load(null)

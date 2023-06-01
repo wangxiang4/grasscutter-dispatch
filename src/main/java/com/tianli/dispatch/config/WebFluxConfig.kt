@@ -1,5 +1,6 @@
 package com.tianli.dispatch.config
 
+import com.tianli.dispatch.constant.AppConstants
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.MediaType
@@ -17,7 +18,7 @@ class WebFluxConfig {
     fun routerFunction(): RouterFunction<ServerResponse> {
         return router {
             (accept(MediaType.TEXT_HTML)
-                    and "/auth/login"
+                    and "${AppConstants.API_DISPATCH}/auth"
             ).nest {
                 GET("/*") { handleRequest(it) }
             }

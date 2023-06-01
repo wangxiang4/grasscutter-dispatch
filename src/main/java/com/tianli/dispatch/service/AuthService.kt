@@ -3,7 +3,7 @@ package com.tianli.dispatch.service
 import com.tianli.dispatch.vo.R
 import org.springframework.web.server.WebSession
 
-interface LoginService {
+interface AuthService {
 
    /**
     * send mail captcha template

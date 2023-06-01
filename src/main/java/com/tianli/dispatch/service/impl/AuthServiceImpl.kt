@@ -2,8 +2,8 @@ package com.tianli.dispatch.service.impl
 
 import cn.hutool.core.util.ObjectUtil
 import cn.hutool.core.util.RandomUtil
-import com.tianli.dispatch.mapper.LoginMapper
-import com.tianli.dispatch.service.LoginService
+import com.tianli.dispatch.mapper.AuthMapper
+import com.tianli.dispatch.service.AuthService
 import com.tianli.dispatch.vo.R
 import freemarker.template.Configuration
 import org.springframework.mail.javamail.JavaMailSender
@@ -17,10 +17,10 @@ import java.time.Instant
 
 
 @Service
-class LoginServiceImpl(private val loginMapper: LoginMapper,
-                       private val javaMailSender: JavaMailSender,
-                       private val taskScheduler: TaskScheduler
-): LoginService {
+class AuthServiceImpl(private val authMapper: AuthMapper,
+                      private val javaMailSender: JavaMailSender,
+                      private val taskScheduler: TaskScheduler
+): AuthService {
 
 
     override fun sendMailCaptcha(recipient: String, webSession: WebSession): R<Boolean> {
