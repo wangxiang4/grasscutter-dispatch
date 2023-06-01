@@ -24,7 +24,6 @@ DROP TABLE IF EXISTS `dispatch_user`;
 CREATE TABLE `dispatch_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'uid',
   `create_player_id` int(11) DEFAULT '0' COMMENT '指定首次进入游戏服务器创建的游戏id',
-  `user_name` varchar(30) DEFAULT NULL COMMENT '用户账号',
   `password` varchar(100) DEFAULT '' COMMENT '密码',
   `email` varchar(50) DEFAULT '' COMMENT '用户邮箱',
   `phone` varchar(11) DEFAULT '' COMMENT '手机号码',

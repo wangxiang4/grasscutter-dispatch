@@ -12,6 +12,7 @@
 <script src="/js/antd.min.js"></script>
 <script src="/js/axios.min.js"></script>
 <script src="/js/tailwindcss.min.js"></script>
+<script src="/js/fontawesome.min.js"></script>
 <style>
 html,
 body {

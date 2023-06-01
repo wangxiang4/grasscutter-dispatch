@@ -17,6 +17,7 @@ val lombokVersion:String by extra { "1.18.26" }
 val mysqlVersion:String by extra { "8.0.33" }
 val okhttpVersion:String by extra { "4.11.0" }
 val kLogVersion:String by extra { "3.0.5" }
+val bcryptVersion:String by extra { "0.10.2" }
 
 application {
 	// define the main class for the application
@@ -49,6 +50,8 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok:$lombokVersion")
 	implementation("io.github.microutils:kotlin-logging-jvm:$kLogVersion")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	implementation("at.favre.lib:bcrypt:$bcryptVersion")
+
 
 }
 

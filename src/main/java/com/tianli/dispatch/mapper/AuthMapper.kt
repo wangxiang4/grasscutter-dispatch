@@ -8,4 +8,6 @@ interface AuthMapper {
     @Select("SELECT * FROM dispatch_user WHERE token = #{token}")
     fun getUserByToken(token:String): User
 
+    fun register(user: User): Int
+
 }

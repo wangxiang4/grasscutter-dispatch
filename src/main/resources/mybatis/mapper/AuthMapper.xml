@@ -3,5 +3,35 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tianli.dispatch.mapper.AuthMapper">
 
+  <insert id="register">
+    insert into dispatch_user(
+        create_player_id,
+        password,
+        email,
+        phone,
+        token,
+        session_key,
+        locale,
+        ban_start_time,
+        ban_end_time,
+        ban,
+        create_time,
+        update_time,
+        remarks,
+    ) values (
+        #{createPlayerId},
+        #{password},
+        #{email},
+        #{token},
+        #{sessionKey},
+        #{locale},
+        #{banStartTime},
+        #{banEndTime},
+        #{ban},
+        #{createTime},
+        #{updateTime},
+        #{remarks},
+    )
+  </insert>
 
 </mapper>

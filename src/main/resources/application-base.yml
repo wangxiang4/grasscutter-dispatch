@@ -24,3 +24,6 @@ logging:
   level:
     com.tianli.dispatch: debug
     org.springframework: WARN
+
+tianli:
+  language: zh_CN

@@ -1,5 +1,6 @@
 package com.tianli.dispatch.controller
 
+import cn.hutool.core.util.ObjectUtil
 import com.tianli.dispatch.constant.AppConstants
 import com.tianli.dispatch.domain.User
 import com.tianli.dispatch.service.AuthService
@@ -15,7 +16,9 @@ class AuthController(private val authService: AuthService) {
 
     @PostMapping("/sendMailCaptcha")
     fun sendMailCaptcha(@RequestParam recipient: String, webSession: WebSession): Mono<R<Boolean>> {
-        return Mono.just(authService.sendMailCaptcha(recipient, webSession))
+        return if (ObjectUtil.isEmpty(webSession.attributes[recipient]))
+            Mono.just(R.ok(authService.sendMailCaptcha(recipient, webSession)))
+        else Mono.just(R.error(false, "验证码已发送，请过一会儿再请求"))
     }
 
     @PostMapping("/getUserByToken")
@@ -24,8 +27,10 @@ class AuthController(private val authService: AuthService) {
     }
 
     @PostMapping("/register")
-    fun register(@RequestBody user:User) {
-
+    fun register(@RequestBody user:User, webSession: WebSession): Mono<R<User?>> {
+        return if ((webSession.attributes[user.email] as String) == user.code)
+            return Mono.just(R.ok(authService.register(user)))
+        else Mono.just(R.error(null, "邮箱验证码有误"))
     }
 
 }

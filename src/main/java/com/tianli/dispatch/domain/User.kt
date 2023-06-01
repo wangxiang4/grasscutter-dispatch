@@ -5,10 +5,9 @@ import java.time.LocalDateTime
 data class User(
     var id: String?= null,
     var createPlayerId: Int?= null,
-    var userName: String?= null,
-    var password: String? = null,
     var email: String? = null,
     var phone: String? = null,
+    var password: String? = null,
     var token: String? = null,
     var sessionKey: String? = null,
     var locale: String? = null,
@@ -18,5 +17,5 @@ data class User(
     var createTime: LocalDateTime? = null,
     var updateTime: LocalDateTime? = null,
     var remarks: String? = null,
-    var delFlag: String? = null,
+    var code: String? = null,
 )
