@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <link rel="icon" href="/image/favicon.ico">
 <link href="/css/antd.min.css" rel="stylesheet">
 <script src="/js/vue.global.min.js"></script>
@@ -16,29 +17,12 @@
 <style>
 html,
 body {
-    width: 100%;
-    height: inherit !important;
-    overflow: visible;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
-    width: 7px;
-    height: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: rgba(144, 147, 153, 0.3);
-    border-radius: 2px;
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background-color: #b6b7b9;
+    display: none;
 }
 </style>
 <script>
@@ -49,9 +33,27 @@ body {
   }
 </script>
 <script>
+  window.onload=function () {
+    // handle prevent double click zoom
+    document.addEventListener('touchstart',function (event) {
+      if(event.touches.length>1){
+        event.preventDefault()
+      }
+    })
+    let lastTouchEnd = 0
+    document.addEventListener('touchend',function (event) {
+      const now = (new Date()).getTime()
+      if(now-lastTouchEnd<=300){
+        event.preventDefault()
+      }
+      lastTouchEnd = now
+    })
+    // handle prevent two finger zoom
+    document.addEventListener('gesturestart', (e) => e.preventDefault())
+  }
   const axiosInstance = axios.create({
     headers: { 'Content-Type': 'application/json;charset=UTF-8' },
     timeout: 10 * 1000,
     validateStatus: status => status >= 200 && status <= 500
-  });
+  })
 </script>

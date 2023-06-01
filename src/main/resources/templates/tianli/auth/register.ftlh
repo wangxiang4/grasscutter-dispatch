@@ -10,7 +10,7 @@
 	<a-layout class="mt-12">
 		<a-header>
 			<div class="grid place-items-center">
-				<a href="https://casks.me">
+				<a href="https://mihoyo.com">
 					<img src="/image/hoyo.png" alt="米哈游原神">
 				</a>
 			</div>
@@ -186,10 +186,6 @@
   }).mount('#app')
 </script>
 <style>
-#app {
-
-}
-
 .ant-layout {
 	background: #ffffff;
 }
