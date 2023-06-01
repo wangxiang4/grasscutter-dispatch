@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Select
 
 interface AuthMapper {
 
-    @Select("SELECT * FROM auth_user WHERE token = #{token}")
+    @Select("SELECT * FROM dispatch_user WHERE token = #{token}")
     fun getUserByToken(token:String): User
 
 }
