@@ -18,6 +18,11 @@ class AuthController(private val authService: AuthService) {
         return Mono.just(authService.sendMailCaptcha(recipient, webSession))
     }
 
+    @PostMapping("/getUserByToken")
+    fun getUserByToken(@RequestParam token: String): Mono<R<User>> {
+        return Mono.just(R.ok(authService.getUserByToken(token)))
+    }
+
     @PostMapping("/register")
     fun register(@RequestBody user:User) {
 
