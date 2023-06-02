@@ -3,9 +3,9 @@ package com.tianli.dispatch.service.impl
 import at.favre.lib.crypto.bcrypt.BCrypt
 import cn.hutool.core.util.RandomUtil
 import cn.hutool.core.util.StrUtil
-import com.tianli.dispatch.domain.User
+import com.tianli.dispatch.domain.Account
 import com.tianli.dispatch.mapper.AuthMapper
-import com.tianli.dispatch.props.TianliProperties
+import com.tianli.dispatch.props.DispatchProperties
 import com.tianli.dispatch.service.AuthService
 import freemarker.template.Configuration
 import org.springframework.core.env.ConfigurableEnvironment
@@ -25,12 +25,12 @@ import java.util.*
 class AuthServiceImpl(private val authMapper: AuthMapper,
                       private val javaMailSender: JavaMailSender,
                       private val taskScheduler: TaskScheduler,
-                      private val tianliProperties: TianliProperties,
+                      private val dispatchProperties: DispatchProperties,
                       private val environment: ConfigurableEnvironment
 ): AuthService {
 
 
-    override fun getUserByToken(token: String): User {
+    override fun getUserByToken(token: String): Account {
         return authMapper.getUserByToken(token)
     }
 
@@ -57,12 +57,12 @@ class AuthServiceImpl(private val authMapper: AuthMapper,
         return true
     }
 
-    override fun register(user: User): User {
-        user.password = BCrypt.withDefaults().hashToString(12, user.password?.toCharArray())
-        user.locale = StrUtil.emptyToDefault(tianliProperties.language, Locale.getDefault().language)
-        user.createTime = LocalDateTime.now()
-        authMapper.register(user)
-        return user
+    override fun register(account: Account): Account {
+        account.password = BCrypt.withDefaults().hashToString(12, account.password?.toCharArray())
+        account.locale = StrUtil.emptyToDefault(dispatchProperties.language, Locale.getDefault().language)
+        account.createTime = LocalDateTime.now()
+        authMapper.register(account)
+        return account
     }
 
 }

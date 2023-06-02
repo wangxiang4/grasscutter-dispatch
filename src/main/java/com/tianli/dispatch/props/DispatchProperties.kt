@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration
 
 /**
  *<p>
- * tianli config
+ * dispatch config
  *</p>
  *
  * @Author: wangxiang4
@@ -14,9 +14,10 @@ import org.springframework.context.annotation.Configuration
  */
 @Configuration
 @EnableConfigurationProperties(ApplicationProperties::class)
-@ConfigurationProperties(prefix = "tianli")
-class TianliProperties {
+@ConfigurationProperties(prefix = "dispatch")
+class DispatchProperties {
 
     var language: String? = null
+    var sdkName: String? = "hk4e"
 
 }

@@ -2,7 +2,7 @@ package com.tianli.dispatch.controller
 
 import cn.hutool.core.util.ObjectUtil
 import com.tianli.dispatch.constant.AppConstants
-import com.tianli.dispatch.domain.User
+import com.tianli.dispatch.domain.Account
 import com.tianli.dispatch.service.AuthService
 import com.tianli.dispatch.vo.R
 import org.springframework.web.bind.annotation.*
@@ -22,14 +22,14 @@ class AuthController(private val authService: AuthService) {
     }
 
     @PostMapping("/getUserByToken")
-    fun getUserByToken(@RequestParam token: String): Mono<R<User>> {
+    fun getUserByToken(@RequestParam token: String): Mono<R<Account>> {
         return Mono.just(R.ok(authService.getUserByToken(token)))
     }
 
     @PostMapping("/register")
-    fun register(@RequestBody user:User, webSession: WebSession): Mono<R<User?>> {
-        return if ((webSession.attributes[user.email] as String) == user.code)
-            return Mono.just(R.ok(authService.register(user)))
+    fun register(@RequestBody account:Account, webSession: WebSession): Mono<R<Account?>> {
+        return if ((webSession.attributes[account.email] as String) == account.code)
+            return Mono.just(R.ok(authService.register(account)))
         else Mono.just(R.error(null, "邮箱验证码有误"))
     }
 

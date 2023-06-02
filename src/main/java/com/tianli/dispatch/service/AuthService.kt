@@ -1,6 +1,6 @@
 package com.tianli.dispatch.service
 
-import com.tianli.dispatch.domain.User
+import com.tianli.dispatch.domain.Account
 import org.springframework.web.server.WebSession
 
 interface AuthService {
@@ -10,7 +10,7 @@ interface AuthService {
     * @param token
     * @return User
     */
-   fun getUserByToken(token: String): User
+   fun getUserByToken(token: String): Account
 
    /**
     * Send mail captcha template
@@ -21,9 +21,9 @@ interface AuthService {
 
    /**
     * register dispatch user
-    * @param user
+    * @param account
     * @return User
     */
-   fun register(user:User): User
+   fun register(account:Account): Account
 
 }

@@ -5,11 +5,12 @@
 
   <insert id="register">
     insert into dispatch_user(
-        create_player_id,
+        id,
+        username,
         password,
         email,
         phone,
-        token,
+        game_token,
         session_key,
         locale,
         ban_start_time,
@@ -20,6 +21,7 @@
         remarks,
     ) values (
         #{createPlayerId},
+        #{username},
         #{password},
         #{email},
         #{token},
