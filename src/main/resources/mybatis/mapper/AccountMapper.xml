@@ -29,11 +29,11 @@
         update_time,
         remarks,
     ) values (
-        #{createPlayerId},
         #{username},
         #{password},
         #{email},
-        #{token},
+        #{phone},
+        #{gameToken},
         #{sessionKey},
         #{locale},
         #{banStartTime},

@@ -58,12 +58,12 @@
 					         placeholder="确认密码"
 					/>
 				</a-form-item>
-				<a-form-item name="checkPolicy">
-					<a-checkbox v-model:checked="state.modelRef.checkPolicy">阅读并同意</a-checkbox>
+				<a-form-item>
+					<a-checkbox v-model:checked="state.checkPolicy">阅读并同意</a-checkbox>
 					<a @click="() => state.privacyVisible = true">用户协议、隐私政策</a>
 				</a-form-item>
 				<a-form-item>
-					<a-button type="primary" class="w-full" size="large" @click="handleSubmit">注册</a-button>
+					<a-button type="primary" class="w-full" size="large"  :loading="state.loading"  @click="handleSubmit">注册</a-button>
 				</a-form-item>
 			</a-form>
 		</a-content>
@@ -118,7 +118,6 @@
 					code: undefined,
 					password: undefined,
 					confirmPassword: undefined,
-					checkPolicy: undefined,
         },
 				rulesRef: {
 					username: [
@@ -155,6 +154,7 @@
 				timerRuning: false,
 				captchaSendLoading: false,
 				done: false,
+				checkPolicy: false,
       })
 
 			async function handleGetMailCaptcha() {
@@ -200,9 +200,17 @@
 
 			async function handleSubmit() {
 				const formData = await formElRef.value.validate();
+				if (!state.checkPolicy) return message.open({
+					icon: Vue.h('i', { class: 'fa-regular fa-face-sad-tear mr-1' }),
+					content: '请先阅读并同意协议',
+				})
+				if (state.modelRef.password != state.modelRef.confirmPassword) return message.open({
+					icon: Vue.h('i', { class: 'fa-regular fa-face-sad-tear mr-1' }),
+					content: '两次密码输入不一致',
+				})
 				try {
 					state.loading = true;
-					const result = await axiosInstance.post('sendMailCaptcha', formData)
+					const result = await axiosInstance.post('register', formData)
 					if (result.code == 200) {
 						const account = result.data
 						state.privacyVisible = false
