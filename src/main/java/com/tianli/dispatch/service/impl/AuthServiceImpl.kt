@@ -4,7 +4,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt
 import cn.hutool.core.util.RandomUtil
 import cn.hutool.core.util.StrUtil
 import com.tianli.dispatch.domain.Account
-import com.tianli.dispatch.mapper.AuthMapper
+import com.tianli.dispatch.mapper.AccountMapper
 import com.tianli.dispatch.props.DispatchProperties
 import com.tianli.dispatch.service.AuthService
 import freemarker.template.Configuration
@@ -22,7 +22,7 @@ import java.util.*
 
 
 @Service
-class AuthServiceImpl(private val authMapper: AuthMapper,
+class AuthServiceImpl(private val accountMapper: AccountMapper,
                       private val javaMailSender: JavaMailSender,
                       private val taskScheduler: TaskScheduler,
                       private val dispatchProperties: DispatchProperties,
@@ -31,7 +31,7 @@ class AuthServiceImpl(private val authMapper: AuthMapper,
 
 
     override fun getUserByToken(token: String): Account {
-        return authMapper.getUserByToken(token)
+        return accountMapper.getAccountByGameToken(token)
     }
 
     override fun sendMailCaptcha(recipient: String, webSession: WebSession): Boolean {
@@ -61,7 +61,7 @@ class AuthServiceImpl(private val authMapper: AuthMapper,
         account.password = BCrypt.withDefaults().hashToString(12, account.password?.toCharArray())
         account.locale = StrUtil.emptyToDefault(dispatchProperties.language, Locale.getDefault().language)
         account.createTime = LocalDateTime.now()
-        authMapper.register(account)
+        accountMapper.register(account)
         return account
     }
 
