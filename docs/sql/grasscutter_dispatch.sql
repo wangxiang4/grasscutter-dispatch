@@ -11,7 +11,7 @@
  Target Server Version : 50739 (5.7.39)
  File Encoding         : 65001
 
- Date: 03/06/2023 00:37:24
+ Date: 03/06/2023 05:23:22
 */
 
 SET NAMES utf8mb4;
@@ -24,11 +24,11 @@ DROP TABLE IF EXISTS `dispatch_account`;
 CREATE TABLE `dispatch_account` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'uid',
   `username` varchar(60) NOT NULL DEFAULT '' COMMENT '用户名',
-  `password` varchar(100) NOT NULL DEFAULT '' COMMENT '密码',
-  `email` varchar(50) DEFAULT '' COMMENT '用户邮箱',
-  `phone` varchar(11) DEFAULT '' COMMENT '手机号码',
-  `game_token` varchar(255) NOT NULL COMMENT '游戏服务器验证账户信息token',
-  `session_key` varchar(255) NOT NULL COMMENT '自动登录会话key',
+  `password` varchar(255) NOT NULL DEFAULT '' COMMENT '密码',
+  `email` varchar(50) DEFAULT NULL COMMENT '用户邮箱',
+  `phone` varchar(11) DEFAULT NULL COMMENT '手机号码',
+  `game_token` varchar(255) DEFAULT NULL COMMENT '游戏服务器验证账户信息token',
+  `session_key` varchar(255) DEFAULT NULL COMMENT '自动登录会话key',
   `locale` varchar(80) DEFAULT NULL COMMENT '游戏服务器国际化',
   `ban_start_time` int(11) DEFAULT '0' COMMENT '账户开始禁用时间',
   `ban_end_time` int(11) DEFAULT '0' COMMENT '账户结束禁用时间',
