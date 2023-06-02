@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono
 
 @RestController
 @RequestMapping(AppConstants.API_DISPATCH + "/auth")
-class AuthController(private val authService: AuthService, private val dispatchProperties: DispatchProperties,) {
+class AuthController(private val authService: AuthService) {
 
     @PostMapping("/sendMailCaptcha")
     fun sendMailCaptcha(@RequestParam recipient: String, webSession: WebSession): Mono<R<Boolean>> {
@@ -25,19 +25,27 @@ class AuthController(private val authService: AuthService, private val dispatchP
         else Mono.just(R.error(false, "验证码已发送，请过一会儿再请求"))
     }
 
-    @PostMapping("/getUserByToken")
-    fun getUserByToken(@RequestParam token: String): Mono<R<Account>> {
-        println(dispatchProperties.language)
-        return Mono.just(R.ok(authService.getUserByToken(token)))
+    @PostMapping("/getAccountByToken")
+    fun getAccountByToken(@RequestParam token: String): Mono<R<Account?>> {
+        return Mono.just(R.ok(authService.getAccountByToken(token)))
     }
 
     @PostMapping("/register")
     fun register(@RequestBody account:Account, webSession: WebSession): Mono<R<Account?>> {
-        if (StrUtil.isBlank(account.email) || StrUtil.isBlank(account.code))
+        // Prevent malicious attacks
+        if (StrUtil.isBlank(account.username) || StrUtil.isBlank(account.password))
             return Mono.just(R.error(null, "必填属性为空请检查后在试"))
-        return if (webSession.attributes[account.email!!] as? String == account.code)
-            return Mono.just(R.ok(authService.register(account)))
-        else Mono.just(R.error(null, "邮箱验证码有误"))
+        if (StrUtil.isNotBlank(account.email)) {
+            if (StrUtil.isBlank(account.code)) Mono.just(R.error(null, "验证码必填"))
+            return if (webSession.attributes[account.email] as? String == account.code)
+                return Mono.just(R.ok(authService.register(account)))
+            else Mono.just(R.error(null, "邮箱验证码有误"))
+        } else return Mono.just(R.ok(authService.register(account)))
+    }
+
+    @PostMapping("/getAccountByUsername")
+    fun getAccountByUsername(@RequestParam username: String): Mono<R<Account?>> {
+        return Mono.just(R.ok(authService.getAccountByUsername(username)))
     }
 
 }

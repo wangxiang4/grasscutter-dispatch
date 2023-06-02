@@ -6,11 +6,11 @@ import org.springframework.web.server.WebSession
 interface AuthService {
 
    /**
-    * Get user based on token info
+    * Get account based on token info
     * @param token
-    * @return User
+    * @return Account
     */
-   fun getUserByToken(token: String): Account
+   fun getAccountByToken(token: String): Account?
 
    /**
     * Send mail captcha template
@@ -20,10 +20,17 @@ interface AuthService {
    fun sendMailCaptcha(recipient: String, webSession: WebSession): Boolean
 
    /**
-    * register dispatch user
+    * register dispatch account
     * @param account
-    * @return User
+    * @return Account
     */
-   fun register(account:Account): Account
+   fun register(account:Account): Account?
+
+   /**
+    * Get account based on username info
+    * @param username
+    * @return Account
+    */
+   fun getAccountByUsername(username: String): Account?
 
 }

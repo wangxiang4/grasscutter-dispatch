@@ -23,7 +23,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `dispatch_account`;
 CREATE TABLE `dispatch_account` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'uid',
-  `username` varchar(100) NOT NULL DEFAULT '' COMMENT '用户名',
+  `username` varchar(60) NOT NULL DEFAULT '' COMMENT '用户名',
   `password` varchar(100) NOT NULL DEFAULT '' COMMENT '密码',
   `email` varchar(50) DEFAULT '' COMMENT '用户邮箱',
   `phone` varchar(11) DEFAULT '' COMMENT '手机号码',

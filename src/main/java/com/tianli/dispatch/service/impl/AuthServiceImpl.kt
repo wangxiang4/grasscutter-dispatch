@@ -30,7 +30,7 @@ class AuthServiceImpl(private val accountMapper: AccountMapper,
 ): AuthService {
 
 
-    override fun getUserByToken(token: String): Account {
+    override fun getAccountByToken(token: String): Account? {
         return accountMapper.getAccountByGameToken(token)
     }
 
@@ -57,7 +57,7 @@ class AuthServiceImpl(private val accountMapper: AccountMapper,
         return true
     }
 
-    override fun register(account: Account): Account {
+    override fun register(account: Account): Account? {
         account.password = BCrypt.withDefaults().hashToString(12, account.password?.toCharArray())
         account.locale = StrUtil.emptyToDefault(dispatchProperties.language, Locale.getDefault().language)
         account.createTime = LocalDateTime.now()
@@ -65,4 +65,7 @@ class AuthServiceImpl(private val accountMapper: AccountMapper,
         return account
     }
 
+    override fun getAccountByUsername(username: String): Account? {
+        return accountMapper.getAccountByUsername(username)
+    }
 }

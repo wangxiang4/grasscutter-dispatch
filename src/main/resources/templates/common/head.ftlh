@@ -14,6 +14,7 @@
 <script src="/js/axios.min.js"></script>
 <script src="/js/tailwindcss.min.js"></script>
 <script src="/js/fontawesome.min.js"></script>
+<script src="/js/qs.min.js"></script>
 <style>
 html,
 body {
@@ -56,4 +57,22 @@ body {
     timeout: 10 * 1000,
     validateStatus: status => status >= 200 && status <= 500
   })
+  // add request interceptor
+  axiosInstance.interceptors.request.use(config => {
+    const headers = config.headers
+    const contentType = headers?.['Content-Type']
+    const arrayFormat = headers?.arrayFormat || 'indices'
+    if (config.method?.toUpperCase() === 'POST' && contentType === 'application/x-www-form-urlencoded;charset=UTF-8') {
+      config.data = Qs.stringify(config.data, { allowDots: true, arrayFormat: arrayFormat })
+    } else if (config.method?.toUpperCase() === 'GET') {
+      config.params = Qs.stringify(config.params, { allowDots: true, arrayFormat: arrayFormat })
+      config.params = Qs.parse(config.params)
+    }
+    return config
+  }, null)
+  // add response interceptor
+  axiosInstance.interceptors.response.use(response => {
+    const { data } = response
+    return data
+  }, error => Promise.reject(error))
 </script>
