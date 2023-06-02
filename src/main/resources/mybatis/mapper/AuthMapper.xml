@@ -3,6 +3,11 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tianli.dispatch.mapper.AuthMapper">
 
+  <select id="getUserByToken">
+    SELECT * FROM dispatch_account WHERE token = #{token}
+  </select>
+
+
   <insert id="register">
     insert into dispatch_account(
         id,
