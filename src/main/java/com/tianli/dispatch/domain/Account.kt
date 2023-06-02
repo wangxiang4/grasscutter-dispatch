@@ -17,7 +17,6 @@ data class Account(
     var createTime: LocalDateTime? = null,
     var updateTime: LocalDateTime? = null,
     var remarks: String? = null,
-    var code: String? = null,
     var delFlag: String? = null,
-    var test: Boolean? = null
+    var code: String? = null,
 )

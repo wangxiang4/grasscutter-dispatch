@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    include: dispatch
   application:
     name: ${rootProject.name}
   jackson:
@@ -24,6 +26,3 @@ logging:
   level:
     com.tianli.dispatch: debug
     org.springframework: WARN
-
-tianli:
-  language: zh_CN
