@@ -3,7 +3,7 @@ package com.tianli.dispatch.domain
 import java.time.LocalDateTime
 
 data class Account(
-    var id: String?= null, //uid
+    var id: Int?= null, //uid
     var username : String? = null, //用户名
     var password: String? = null, //密码
     var email: String? = null, //邮箱，注册时可选填写，若为空则无法找回
@@ -19,4 +19,5 @@ data class Account(
     var remarks: String? = null,
     var code: String? = null,
     var delFlag: String? = null,
+    var test: Boolean? = null
 )

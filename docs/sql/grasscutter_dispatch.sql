@@ -11,7 +11,7 @@
  Target Server Version : 50739 (5.7.39)
  File Encoding         : 65001
 
- Date: 01/06/2023 18:34:20
+ Date: 02/06/2023 23:02:57
 */
 
 SET NAMES utf8mb4;
@@ -27,8 +27,8 @@ CREATE TABLE `dispatch_account` (
   `password` varchar(100) DEFAULT '' COMMENT '密码',
   `email` varchar(50) DEFAULT '' COMMENT '用户邮箱',
   `phone` varchar(11) DEFAULT '' COMMENT '手机号码',
-  `game_token` text COMMENT '游戏服务器验证账户信息token',
-  `session_key` text COMMENT '自动登录会话key',
+  `game_token` varchar(300) DEFAULT NULL COMMENT '游戏服务器验证账户信息token',
+  `session_key` varchar(300) DEFAULT NULL COMMENT '自动登录会话key',
   `locale` varchar(80) DEFAULT NULL COMMENT '游戏服务器国际化',
   `ban_start_time` int(11) DEFAULT '0' COMMENT '账户开始禁用时间',
   `ban_end_time` int(11) DEFAULT '0' COMMENT '账户结束禁用时间',
@@ -37,7 +37,8 @@ CREATE TABLE `dispatch_account` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remarks` varchar(500) DEFAULT NULL COMMENT '备注',
   `del_flag` char(1) DEFAULT '0' COMMENT '删除标志（0代表存在 1代表删除）',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `comp_token_index` (`game_token`,`session_key`) USING BTREE COMMENT '组合token索引'
 ) ENGINE=InnoDB AUTO_INCREMENT=100000001 DEFAULT CHARSET=utf8mb4 COMMENT='用户信息表';
 
 -- ----------------------------
