@@ -51,8 +51,6 @@ dependencies {
 	implementation("io.github.microutils:kotlin-logging-jvm:$kLogVersion")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	implementation("at.favre.lib:bcrypt:$bcryptVersion")
-
-
 }
 
 plugins {

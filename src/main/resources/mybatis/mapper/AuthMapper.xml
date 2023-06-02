@@ -4,7 +4,7 @@
 <mapper namespace="com.tianli.dispatch.mapper.AuthMapper">
 
   <insert id="register">
-    insert into dispatch_user(
+    insert into dispatch_account(
         id,
         username,
         password,

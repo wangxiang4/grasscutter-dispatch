@@ -11,7 +11,7 @@
 		<a-header>
 			<div class="grid place-items-center">
 				<a href="https://mihoyo.com">
-					<img src="/image/hoyo.png" alt="米哈游原神">
+					<img src="/image/mihoyo.png" alt="米哈游原神">
 				</a>
 			</div>
 		</a-header>

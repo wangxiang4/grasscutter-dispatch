@@ -18,10 +18,10 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for dispatch_user
+-- Table structure for dispatch_account
 -- ----------------------------
-DROP TABLE IF EXISTS `dispatch_user`;
-CREATE TABLE `dispatch_user` (
+DROP TABLE IF EXISTS `dispatch_account`;
+CREATE TABLE `dispatch_account` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'uid',
   `username` varchar(100) DEFAULT '' COMMENT '用户名',
   `password` varchar(100) DEFAULT '' COMMENT '密码',
@@ -41,7 +41,7 @@ CREATE TABLE `dispatch_user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=100000001 DEFAULT CHARSET=utf8mb4 COMMENT='用户信息表';
 
 -- ----------------------------
--- Records of dispatch_user
+-- Records of dispatch_account
 -- ----------------------------
 BEGIN;
 COMMIT;
