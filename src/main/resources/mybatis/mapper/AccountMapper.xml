@@ -3,7 +3,10 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tianli.dispatch.mapper.AuthMapper">
 
-  <select id="getUserByToken">
+    <select id="getAccountByUsername">
+      SELECT * FROM dispatch_account WHERE username = #{username}
+    </select>
+  <select id="getAccountByGameToken">
     SELECT * FROM dispatch_account WHERE token = #{token}
   </select>
 
