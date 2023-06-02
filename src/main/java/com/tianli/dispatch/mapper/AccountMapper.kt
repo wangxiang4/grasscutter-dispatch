@@ -6,7 +6,7 @@ interface AccountMapper {
 
     fun getAccountByUsername(username: String): Account?
 
-    fun getAccountByGameToken(token: String): Account?
+    fun getAccountByGameToken(token: String): Account
 
     fun register(account: Account): Int
 
