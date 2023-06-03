@@ -13,9 +13,14 @@ import cn.hutool.core.lang.generator.SnowflakeGenerator
 class BaseUtil {
 
     companion object {
+        private val snowflakeGenerator = SnowflakeGenerator()
         fun snowflakeId(): Long {
-            val snowflakeGenerator = SnowflakeGenerator()
             return snowflakeGenerator.next()
+        }
+        fun bytesToHex(bytes: ByteArray): String {
+            return bytes.joinToString("") {
+                String.format("%02x", it)
+            }
         }
     }
 

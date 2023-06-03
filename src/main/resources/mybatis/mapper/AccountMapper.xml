@@ -10,8 +10,11 @@
   <select id="getAccountByGameToken" resultType="Account">
     SELECT * FROM dispatch_account WHERE game_token = #{token}
   </select>
-
-
+    <update id="updateSessionKey">
+        update dispatch_account
+        set session_key = #{sessionKey}
+        where id = #{id}
+ </update>
   <insert id="register">
     insert into dispatch_account(
         username,
