@@ -9,5 +9,5 @@ interface SdkService {
      * @return Account. If account not found or password incorrect, return null
      */
     fun passwordLogin(username: String, password: String, isCrypto: Boolean): Account?
-
+    fun sessionKeyLogin(uid: Int, token: String): Account?
 }

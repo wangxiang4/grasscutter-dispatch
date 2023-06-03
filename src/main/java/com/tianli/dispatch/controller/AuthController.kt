@@ -24,10 +24,6 @@ class AuthController(private val authService: AuthService) {
         else Mono.just(R.error(false, "验证码已发送，请过一会儿再请求"))
     }
 
-    @PostMapping("/getAccountByToken")
-    fun getAccountByToken(@RequestParam token: String): Mono<R<Account?>> {
-        return Mono.just(R.ok(authService.getAccountByToken(token)))
-    }
 
     @PostMapping("/register")
     fun register(@RequestBody account:Account, webSession: WebSession): Mono<R<Account?>> {

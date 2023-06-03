@@ -25,4 +25,9 @@ class SdkServiceImpl(private val accountMapper: AccountMapper) : SdkService {
         return account
     }
 
+    override fun sessionKeyLogin(uid: Int, token: String): Account? {
+        val account = accountMapper.getAccountByUid(uid) ?: return null
+        if (account.sessionKey != token) return null
+        return account
+    }
 }
