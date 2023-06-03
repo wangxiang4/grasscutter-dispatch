@@ -78,7 +78,7 @@ class AuthController(private val authService: AuthService) {
     }
 
     @PostMapping("/selectMailBindAccount")
-    fun selectMailBindAccount(@RequestBody email:String): Mono<R<List<Account>>> {
+    fun selectMailBindAccount(@RequestParam email:String): Mono<R<List<Account>>> {
         return Mono.just(R.ok(authService.selectMailBindAccount(email)))
     }
 

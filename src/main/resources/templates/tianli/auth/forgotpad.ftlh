@@ -198,7 +198,9 @@
 					const result = await axiosInstance.post('getForgotpadToken', formData)
 					if (result.code == 200) {
 						const { data } = result
-						console.log('重置密码成功', data)
+						state.modelForgotpadRef = data.result || {}
+						state.accountList = data.extend || []
+						state.modelForgotpadRef.username = state.accountList[0]?.username
 						state.done = 1
 					} else message.open({
 						icon: Vue.h('i', { class: 'fa-regular fa-face-sad-tear mr-1' }),
@@ -211,21 +213,18 @@
 
 			async function handleForgotpadSubmit() {
 				const formData = await formForgotpadElRef.value.validate();
-				if (state.modelRef.password != state.modelRef.confirmPassword) return message.open({
+				formData.email = state.modelForgotpadRef.email
+				formData.forgotpadToken = state.modelForgotpadRef.forgotpadToken
+				if (state.modelForgotpadRef.password != state.modelForgotpadRef.confirmPassword) return message.open({
 					icon: Vue.h('i', { class: 'fa-regular fa-face-sad-tear mr-1' }),
 					content: '两次密码输入不一致',
 				})
 				try {
 					state.loading = true;
 					const result = await axiosInstance.post('resetPassword', formData)
-					if (result.code == 200) {
-
-						state.modelForgotpadRef = data.result || {}
-						state.accountList = data.extend || []
-						state.modelForgotpadRef.username = state.accountList[0]?.username
-
+					if (result.code == 200)
 						state.done = 2
-					} else message.open({
+					else message.open({
 						icon: Vue.h('i', { class: 'fa-regular fa-face-sad-tear mr-1' }),
 						content: result.msg || '重置密码失败',
 					})

@@ -54,7 +54,7 @@
       AND username = #{username}
   </update>
 
-  <select id="selectMailBindAccount">
+  <select id="selectMailBindAccount" resultType="Account">
     SELECT * FROM dispatch_account WHERE email = #{email}
   </select>
 
