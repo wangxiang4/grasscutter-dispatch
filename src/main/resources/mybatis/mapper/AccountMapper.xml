@@ -47,4 +47,15 @@
     )
   </insert>
 
+  <update id="resetPassword">
+    UPDATE dispatch_account
+    SET password = #{password}
+    where email = #{email}
+      AND username = #{username}
+  </update>
+
+  <select id="selectMailBindAccount">
+    SELECT * FROM dispatch_account WHERE email = #{email}
+  </select>
+
 </mapper>
