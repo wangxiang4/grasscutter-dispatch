@@ -3,6 +3,7 @@ package com.tianli.dispatch.service.impl
 import at.favre.lib.crypto.bcrypt.BCrypt
 import cn.hutool.core.util.RandomUtil
 import cn.hutool.core.util.StrUtil
+import com.tianli.dispatch.constant.AppConstants
 import com.tianli.dispatch.domain.Account
 import com.tianli.dispatch.mapper.AccountMapper
 import com.tianli.dispatch.props.DispatchProperties
@@ -67,5 +68,17 @@ class AuthServiceImpl(private val accountMapper: AccountMapper,
 
     override fun getAccountByUsername(username: String): Account? {
         return accountMapper.getAccountByUsername(username)
+    }
+
+    override fun resetPassword(account: Account, webSession: WebSession): Boolean {
+        account.password = BCrypt.withDefaults().hashToString(12, account.password?.toCharArray())
+        val row = accountMapper.resetPassword(account)
+        if (row == 0) return false
+        webSession.attributes.remove(webSession.attributes["${account.email}-${AppConstants.FORGOTPAD_TOKEN_SUFFIX}"])
+        return true
+    }
+
+    override fun selectMailBindAccount(email: String): List<Account> {
+        return accountMapper.selectMailBindAccount(email)
     }
 }

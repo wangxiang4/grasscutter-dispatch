@@ -10,4 +10,8 @@ interface AccountMapper {
 
     fun register(account: Account): Int
 
+    fun resetPassword(account: Account): Int
+
+    fun selectMailBindAccount(email: String): List<Account>
+
 }

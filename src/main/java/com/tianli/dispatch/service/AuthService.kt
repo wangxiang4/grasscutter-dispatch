@@ -33,4 +33,18 @@ interface AuthService {
     */
    fun getAccountByUsername(username: String): Account?
 
+   /**
+    * Reset Bind Mail Account Password
+    * @param account
+    * @return Boolean
+    */
+   fun resetPassword(account: Account, webSession: WebSession): Boolean
+
+   /**
+    * Query Mail Bind Account
+    * @param email
+    * @return List<Account>
+    */
+   fun selectMailBindAccount(email: String): List<Account>
+
 }

@@ -19,4 +19,5 @@ data class Account(
     var remarks: String? = null,
     var delFlag: String? = null,
     var code: String? = null,
+    var forgotpadToken: String? = null,
 )
