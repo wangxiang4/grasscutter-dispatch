@@ -2,11 +2,11 @@ package com.tianli.dispatch.controller
 
 import cn.hutool.core.util.ObjectUtil
 import cn.hutool.core.util.StrUtil
+import com.tianli.dispatch.api.R
 import com.tianli.dispatch.constant.AppConstants
 import com.tianli.dispatch.domain.Account
 import com.tianli.dispatch.service.AuthService
 import com.tianli.dispatch.util.SecurityUtil
-import com.tianli.dispatch.vo.R
 import com.tianli.dispatch.vo.ResultVo
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.WebSession

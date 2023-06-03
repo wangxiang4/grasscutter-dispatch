@@ -1,4 +1,4 @@
-package com.tianli.dispatch.vo
+package com.tianli.dispatch.api
 
 /**
  *<p>
@@ -8,15 +8,20 @@ package com.tianli.dispatch.vo
  * @Author: wangxiang4
  * @since: 2023/5/30
  */
-class R<T> {
+open class R<T>(
+    code: Int? = 0,
+    msg: String? = null,
+    total: Long? = 0,
+    data: T? = null
+) {
 
     companion object {
 
-        const val SUCCESS:Int = 200
+        private const val SUCCESS:Int = 200
 
-        const val FAIL:Int = 500
+        private const val FAIL:Int = 500
 
-        const val UNAUTH:Int = 401
+        private const val UNAUTH:Int = 401
 
         fun <T> ok(): R<T?> {
             return restResult(null, SUCCESS, "成功")
@@ -73,12 +78,12 @@ class R<T> {
         }
     }
 
-    var code: Int = 0
+    open var code: Int? = code
 
-    var msg: String? = null
+    open var msg: String? = msg
 
-    var total: Long = 0
+    open var total: Long? = total
 
-    var data: T? = null
+    open var data: T? = data
 
 }

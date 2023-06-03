@@ -1,6 +1,6 @@
-package com.tianli.dispatch.vo
+package com.tianli.dispatch.enums
 
-enum class SdkRspCode(val code: Int, val message: String) {
+enum class SdkRspCodeEnum(val code: Int, val message: String) {
     OK(0, "OK"),
     SYSTEM_ERROR(-101, "系统错误"),
     PASSWORD_FORMAT_ERROR(-102, "密码格式错误，密码格式为8-30位，并且由数字、大小写字母、英文特殊符号两种以上组合"),
