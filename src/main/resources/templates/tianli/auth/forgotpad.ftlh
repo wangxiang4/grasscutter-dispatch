@@ -99,7 +99,8 @@
 			AInput: antd.Input,
 			AInputPassword: antd.InputPassword,
 			ADivider: antd.Divider,
-			ASelect: antd.Select
+			ASelect: antd.Select,
+			AResult: antd.Result
 		},
 		setup() {
 			const formMailElRef = Vue.ref();

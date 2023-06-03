@@ -72,6 +72,7 @@ class AuthServiceImpl(private val accountMapper: AccountMapper,
 
     override fun resetPassword(account: Account, webSession: WebSession): Boolean {
         account.password = BCrypt.withDefaults().hashToString(12, account.password?.toCharArray())
+        account.updateTime = LocalDateTime.now()
         val row = accountMapper.resetPassword(account)
         if (row == 0) return false
         webSession.attributes.remove(webSession.attributes["${account.email}-${AppConstants.FORGOTPAD_TOKEN_SUFFIX}"])
