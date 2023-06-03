@@ -6,6 +6,8 @@ interface AccountMapper {
 
     fun getAccountByUsername(username: String): Account?
 
+    fun getAccountByUid(uid: Int): Account?
+
     fun getAccountByGameToken(token: String): Account?
 
     fun updateSessionKey(id: Int, sessionKey: String): Int

@@ -5,12 +5,6 @@ import org.springframework.web.server.WebSession
 
 interface AuthService {
 
-   /**
-    * Get account based on token info
-    * @param token
-    * @return Account
-    */
-   fun getAccountByToken(token: String): Account?
 
    /**
     * Send mail captcha template

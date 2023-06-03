@@ -6,6 +6,9 @@
   <select id="getAccountByUsername" resultType="Account">
     SELECT * FROM dispatch_account WHERE username = #{username}
   </select>
+   <select id="getAccountByUid" resultType="Account">
+        SELECT * FROM dispatch_account WHERE id = #{uid}
+   </select>
 
   <select id="getAccountByGameToken" resultType="Account">
     SELECT * FROM dispatch_account WHERE game_token = #{token}

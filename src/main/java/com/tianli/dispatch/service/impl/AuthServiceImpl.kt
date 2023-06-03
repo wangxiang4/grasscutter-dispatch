@@ -31,9 +31,6 @@ class AuthServiceImpl(private val accountMapper: AccountMapper,
 ): AuthService {
 
 
-    override fun getAccountByToken(token: String): Account? {
-        return accountMapper.getAccountByGameToken(token)
-    }
 
     override fun sendMailCaptcha(recipient: String, webSession: WebSession): Boolean {
         val configuration = Configuration(Configuration.VERSION_2_3_32)
