@@ -57,7 +57,7 @@
 										:show-arrow="false"
 										:options="state.accountList"
 										placeholder="选择用户名"
-										:field-names="{ label: 'username', key: 'username' }"
+										:field-names="{ value: 'username' }"
 					/>
 				</a-form-item>
 				<a-form-item name="password">
