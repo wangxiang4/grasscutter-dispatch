@@ -18,6 +18,11 @@ import org.springframework.context.annotation.Configuration
 class DispatchProperties {
 
     var language: String? = null
+
     var sdkName: String? = "hk4e"
+
+    var gateServer: List<GateServer> = ArrayList()
+
+    var accessAddress: String? = null
 
 }

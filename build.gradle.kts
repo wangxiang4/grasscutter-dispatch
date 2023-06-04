@@ -47,6 +47,7 @@ dependencies {
 	implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
 	implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisVersion")
 	implementation("cn.hutool:hutool-core:$hutoolVersion")
+	implementation("cn.hutool:hutool-json:$hutoolVersion")
 	runtimeOnly("com.mysql:mysql-connector-j:$mysqlVersion")
 	compileOnly("org.projectlombok:lombok:$lombokVersion")
 	annotationProcessor("org.projectlombok:lombok:$lombokVersion")

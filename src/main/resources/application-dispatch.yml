@@ -1,2 +1,14 @@
 dispatch:
+  accessAddress: 192.168.3.94:8080
   language: zh_CN
+  gateServer:
+    - name: http
+      title: http
+      dispatchUrl: http://192.168.3.94:8080/query_cur_region
+    - name: https
+      title: https
+      dispatchUrl: https://192.168.3.94:443/query_cur_region
+    - name: os_beta01
+      title: 192.168.3.94:22102
+      ip: 192.168.3.94
+      port: 22102
