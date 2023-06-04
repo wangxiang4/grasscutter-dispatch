@@ -8,9 +8,9 @@ interface AccountMapper {
 
     fun getAccountByUid(uid: Int): Account?
 
-    fun getAccountByGameToken(token: String): Account?
-
     fun updateSessionKey(id: Int, sessionKey: String): Int
+
+    fun updateGameToken(id: Int, gameToken: String): Int
 
     fun register(account: Account): Int
 

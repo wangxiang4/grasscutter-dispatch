@@ -19,15 +19,25 @@ class SdkServiceImpl(private val accountMapper: AccountMapper) : SdkService {
         //verify password
         if (BCrypt.withDefaults().hashToString(12, password.toCharArray()) != account.password) return null
         //generate session key
-        val sessionKey = CryptoUtil.generateSessionKey()
+        //TODO: get rid of generate duplicate session key
+        val sessionKey = CryptoUtil.generateToken(24)
         account.sessionKey = sessionKey
         account.id?.let { accountMapper.updateSessionKey(it, sessionKey) }
         return account
     }
 
-    override fun sessionKeyLogin(uid: Int, token: String): Account? {
+    override fun sessionKeyLogin(uid: Int, sessionKey: String): Account? {
         val account = accountMapper.getAccountByUid(uid) ?: return null
-        if (account.sessionKey != token) return null
+        if (account.sessionKey != sessionKey) return null
+        return account
+    }
+
+    override fun requestGameToken(uid: Int, sessionKey: String): Account? {
+        val account = sessionKeyLogin(uid, sessionKey) ?: return null
+        //TODO: get rid of generate duplicate game token
+        val gameToken = CryptoUtil.generateToken(20)
+        account.gameToken = gameToken
+        account.id?.let { accountMapper.updateGameToken(it, gameToken) }
         return account
     }
 }

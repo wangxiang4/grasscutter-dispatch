@@ -4,11 +4,13 @@ import cn.hutool.core.util.StrUtil
 import com.tianli.dispatch.api.SdkR
 import com.tianli.dispatch.constant.AppConstants;
 import com.tianli.dispatch.domain.Account
+import com.tianli.dispatch.dto.GetGameTokenReqDto
 import com.tianli.dispatch.dto.PasswordLoginReqDto
 import com.tianli.dispatch.dto.SessionKeyLoginReqDto
 import com.tianli.dispatch.enums.SdkRspCodeEnum
 import com.tianli.dispatch.service.SdkService
 import com.tianli.dispatch.vo.AccountInfoVo
+import com.tianli.dispatch.vo.GetGameTokenRspVo
 import com.tianli.dispatch.vo.LoginRspVo
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody
@@ -50,6 +52,22 @@ class SdkController(private val sdkService: SdkService) {
         val account = sdkService.sessionKeyLogin(sessionKeyLoginReq.uid!!, sessionKeyLoginReq.token!!)
             ?: return Mono.just(SdkR.error(SdkRspCodeEnum.RELOGIN_REQUIRED))
         return login(account)
+    }
+
+    @PostMapping("/combo/granter/login/v2/login")
+    fun requestGameToken(@RequestBody getGameTokenReq: GetGameTokenReqDto): Mono<SdkR<GetGameTokenRspVo?>> {
+        //TODO: ban blacklist ip, error code=-206
+        //check blank field
+        val data = getGameTokenReq.data?: return Mono.just(SdkR.error(SdkRspCodeEnum.PARAMETER_ERROR))
+        if (data.uid == null || StrUtil.isBlank(data.token))
+            return Mono.just(SdkR.error(SdkRspCodeEnum.PARAMETER_ERROR))
+        val account = sdkService.requestGameToken(data.uid!!, data.token!!)
+            ?: return Mono.just(SdkR.error(SdkRspCodeEnum.RELOGIN_REQUIRED))
+        val rsp = GetGameTokenRspVo(
+            open_id = account.id,
+            combo_token = account.gameToken
+        )
+        return Mono.just(SdkR.ok(rsp))
     }
 
     private fun login(account: Account): Mono<SdkR<LoginRspVo?>> {
