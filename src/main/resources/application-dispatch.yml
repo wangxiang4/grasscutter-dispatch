@@ -8,7 +8,7 @@ dispatch:
     - name: https
       title: https
       dispatchUrl: https://192.168.3.94:443/query_cur_region
-    - name: os_beta01
-      title: 192.168.3.94:22102
+    - name: foobar
+      title: foobar
       ip: 192.168.3.94
       port: 22102
