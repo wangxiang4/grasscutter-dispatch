@@ -49,7 +49,14 @@ class RegionServiceImpl: RegionService {
             queryRegionListHttpRsp.addRegionList(regionSimpleInfo)
         }
         this.regionInfos = regionInfos
-        val customConfig = CustomConfigVo("0",true, false,false,"pm|fk|add", "0")
+        val customConfig = CustomConfigVo(
+            "0",
+            "true",
+            "false",
+            "false",
+            "pm|fk|add",
+            "0"
+        )
         val customConfigCn:ByteArray = JSONUtil.toJsonStr(customConfig).toByteArray()
         CryptoUtil.xor(customConfigCn, CryptoUtil.DISPATCH_KEY!!)
         queryRegionListHttpRsp.clientCustomConfigEncrypted = ByteString.copyFrom(customConfigCn)
@@ -57,7 +64,7 @@ class RegionServiceImpl: RegionService {
         this.regionListResponseCn = Base64.encode(queryRegionListHttpRsp.toString().toByteArray())
 
         customConfig.sdkenv = "2"
-        customConfig.checkdevice = false
+        customConfig.checkdevice = "false"
         val customConfigGlobal:ByteArray = JSONUtil.toJsonStr(customConfig).toByteArray()
         CryptoUtil.xor(customConfigGlobal, CryptoUtil.DISPATCH_KEY!!)
         this.regionListResponseGlobal = Base64.encode(queryRegionListHttpRsp.toString().toByteArray())

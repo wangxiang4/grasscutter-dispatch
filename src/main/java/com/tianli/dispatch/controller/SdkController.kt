@@ -1,9 +1,11 @@
 package com.tianli.dispatch.controller;
 
 import cn.hutool.core.util.StrUtil
+import cn.hutool.json.JSONUtil
 import com.tianli.dispatch.api.SdkR
 import com.tianli.dispatch.constant.AppConstants;
 import com.tianli.dispatch.domain.Account
+import com.tianli.dispatch.dto.GetGameTokenReqDataDto
 import com.tianli.dispatch.dto.GetGameTokenReqDto
 import com.tianli.dispatch.dto.PasswordLoginReqDto
 import com.tianli.dispatch.dto.SessionKeyLoginReqDto
@@ -58,10 +60,11 @@ class SdkController(private val sdkService: SdkService) {
     fun requestGameToken(@RequestBody getGameTokenReq: GetGameTokenReqDto): Mono<SdkR<GetGameTokenRspVo?>> {
         //TODO: ban blacklist ip, error code=-206
         //check blank field
-        val data = getGameTokenReq.data?: return Mono.just(SdkR.error(SdkRspCodeEnum.PARAMETER_ERROR))
-        if (data.uid == null || StrUtil.isBlank(data.token))
+        val data = getGameTokenReq.data ?: return Mono.just(SdkR.error(SdkRspCodeEnum.PARAMETER_ERROR))
+        val  gameTokenReqData = JSONUtil.toBean(getGameTokenReq.data, GetGameTokenReqDataDto::class.java)
+        if (gameTokenReqData.uid == null || StrUtil.isBlank(gameTokenReqData.token))
             return Mono.just(SdkR.error(SdkRspCodeEnum.PARAMETER_ERROR))
-        val account = sdkService.requestGameToken(data.uid!!, data.token!!)
+        val account = sdkService.requestGameToken(gameTokenReqData.uid!!, gameTokenReqData.token!!)
             ?: return Mono.just(SdkR.error(SdkRspCodeEnum.RELOGIN_REQUIRED))
         val rsp = GetGameTokenRspVo(
             open_id = account.id,

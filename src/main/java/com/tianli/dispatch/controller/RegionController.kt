@@ -27,4 +27,11 @@ class RegionController(private val regionService: RegionService) {
         return Mono.just(regionService.queryCurrentRegion(region, params))
     }
 
+    @PostMapping("/sdk/dataUpload")
+    fun dataUpload(): Map<String, Any> {
+        val result = HashMap<String, Any>()
+        result["code"] = 0
+        return result;
+    }
+
 }
