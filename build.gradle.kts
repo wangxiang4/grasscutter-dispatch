@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 group = "com.tianli.dispatch"
 version = "1.0.0"
@@ -18,6 +19,7 @@ val mysqlVersion:String by extra { "8.0.33" }
 val okhttpVersion:String by extra { "4.11.0" }
 val kLogVersion:String by extra { "3.0.5" }
 val bcryptVersion:String by extra { "0.10.2" }
+val protobufVersion:String by extra { "3.23.2" }
 
 application {
 	// define the main class for the application
@@ -51,9 +53,18 @@ dependencies {
 	implementation("io.github.microutils:kotlin-logging-jvm:$kLogVersion")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	implementation("at.favre.lib:bcrypt:$bcryptVersion")
+	implementation("com.google.protobuf:protobuf-kotlin:$protobufVersion")
+}
+
+protobuf {
+	protoc {
+		// The artifact spec for the Protobuf Compiler
+		artifact = "com.google.protobuf:protoc:3.23.2"
+	}
 }
 
 plugins {
+	idea
 	java
 	application
 	id("org.springframework.boot") version "3.0.6"
@@ -61,6 +72,11 @@ plugins {
 	id("org.jetbrains.dokka") version "1.8.10"
 	kotlin("jvm") version "1.7.22"
 	kotlin("plugin.spring") version "1.7.22"
+	id("com.google.protobuf") version "0.9.3"
+}
+
+tasks.withType<BootJar> {
+	exclude("**/*.proto")
 }
 
 tasks.withType<Test> {
