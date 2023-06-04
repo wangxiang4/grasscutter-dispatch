@@ -16,8 +16,13 @@ class SdkServiceImpl(private val accountMapper: AccountMapper) : SdkService {
         val account = accountMapper.getAccountByUsername(username) ?: return null
         //TODO: `is_crypto` field is ignored
         if (isCrypto) logger.warn("is_crypto is true. Unimplemented.")
+        val decryptedPassword: String = if (isCrypto) {
+            CryptoUtil.decryptPassword(password)
+        } else {
+            password
+        }
         //verify password
-        if (BCrypt.withDefaults().hashToString(12, password.toCharArray()) != account.password) return null
+        if (BCrypt.withDefaults().hashToString(12, decryptedPassword.toCharArray()) != account.password) return null
         //generate session key
         //TODO: get rid of generate duplicate session key
         val sessionKey = CryptoUtil.generateToken(24)

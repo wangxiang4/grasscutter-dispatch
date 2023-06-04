@@ -6,14 +6,10 @@ import cn.hutool.core.util.StrUtil
 import com.tianli.dispatch.logger
 import com.tianli.dispatch.vo.QueryCurRegionRspVo
 import java.io.ByteArrayOutputStream
-import java.security.KeyFactory
-import java.security.PrivateKey
-import java.security.PublicKey
-import java.security.SecureRandom
-import java.security.Signature
+import java.security.*
 import java.security.spec.PKCS8EncodedKeySpec
 import java.security.spec.X509EncodedKeySpec
-import java.util.Arrays
+import java.util.*
 import java.util.regex.Pattern
 import javax.crypto.Cipher
 
@@ -22,13 +18,15 @@ class CryptoUtil {
 
         private val secureRandom = SecureRandom()
 
-        var DISPATCH_KEY: ByteArray? =null
+        var DISPATCH_KEY: ByteArray? = null
 
         var DISPATCH_SEED: ByteArray? = null
 
-        var CUR_SIGNING_KEY: PrivateKey? = null
+        private var CUR_AUTH_KEY: PrivateKey? = null
 
-        var EncryptionKeys: MutableMap<Int, PublicKey> = HashMap()
+        private var CUR_SIGNING_KEY: PrivateKey? = null
+
+        private var EncryptionKeys: MutableMap<Int, PublicKey> = HashMap()
 
         fun loadSecret() {
             DISPATCH_KEY = ClassPathResource("secret/dispatchKey.bin").readBytes()
@@ -36,6 +34,10 @@ class CryptoUtil {
             try {
                 CUR_SIGNING_KEY = KeyFactory.getInstance("RSA")
                     .generatePrivate(PKCS8EncodedKeySpec(ClassPathResource("secret/SigningKey.der").readBytes()))
+
+                CUR_AUTH_KEY = KeyFactory.getInstance("RSA")
+                    .generatePrivate(PKCS8EncodedKeySpec(ClassPathResource("secret/auth_private-key.der").readBytes()))
+
                 val pattern = Pattern.compile("([0-9]*)_Pub\\.der")
                 for (path in FileUtil.getPathsFromResource("/secret/game")!!) {
                     if (path.toString().endsWith("_Pub.der")) {
@@ -62,27 +64,14 @@ class CryptoUtil {
             }
         }
 
-        fun createSessionKey(length: Int): ByteArray? {
-            val bytes = ByteArray(length)
-            secureRandom.nextBytes(bytes)
-            return bytes
-        }
-
-
-        fun generateSessionKey(length: Int = 32): String {
-            val bytes = ByteArray(length)
-            secureRandom.nextBytes(bytes)
-            return BaseUtil.bytesToHex(bytes)
-        }
-
 
         @Throws(Exception::class)
-        fun encryptAndSignRegionData(regionInfo: ByteArray, key_id: String?): QueryCurRegionRspVo? {
-            if (StrUtil.isBlank(key_id)) {
+        fun encryptAndSignRegionData(regionInfo: ByteArray, keyId: String?): QueryCurRegionRspVo? {
+            if (StrUtil.isBlank(keyId)) {
                 throw Exception("Key ID was not set")
             }
             val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
-            cipher.init(Cipher.ENCRYPT_MODE, EncryptionKeys[Integer.valueOf(key_id)])
+            cipher.init(Cipher.ENCRYPT_MODE, EncryptionKeys[Integer.valueOf(keyId)])
 
             //Encrypt regionInfo in chunks
             val encryptedRegionInfoStream = ByteArrayOutputStream()
@@ -106,6 +95,12 @@ class CryptoUtil {
             rsp.content = Base64.encode(encryptedRegionInfoStream.toByteArray())
             rsp.sign = Base64.encode(privateSignature.sign())
             return rsp
+        }
+
+        fun decryptPassword(password: String): String {
+            val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
+            cipher.init(Cipher.DECRYPT_MODE, CUR_AUTH_KEY)
+            return String(cipher.doFinal(Base64.decode(password)))
         }
 
         fun generateToken(length: Int = 32): String {
