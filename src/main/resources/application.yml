@@ -2,6 +2,6 @@ spring:
   config:
     import: application-base.yml,application-druid.yml
   datasource:
-    username: \${MYSQL_USER:root}
-    password: \${MYSQL_PWD:root}
-    url: jdbc:mysql://\${MYSQL_HOST:127.0.0.1}:\${MYSQL_PORT:3306}/\${MYSQL_DB:grasscutter_dispatch}?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
+    username: \${MYSQL_USER:test_user}
+    password: \${MYSQL_PWD:test_user@github123}
+    url: jdbc:mysql://\${MYSQL_HOST:47.111.191.224}:\${MYSQL_PORT:3306}/\${MYSQL_DB:grasscutter_dispatch}?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
