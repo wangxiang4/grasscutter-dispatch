@@ -45,10 +45,10 @@ class RegionServiceImpl(dispatchProperties: DispatchProperties) : RegionService 
 
         //TODO: more graceful
         val customConfig = CustomConfigVo(
-            "2", //0 for CN and 2 for OS
-            "false", //true for CN and false for OS
-            "false",
-            "false",
+            "0", //0 for CN and 2 for OS
+            false, //true for CN and false for OS
+            false,
+            false,
             "pm|fk|add",
             "0"
         )
