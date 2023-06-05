@@ -10,29 +10,22 @@ import com.tianli.dispatch.vo.CustomConfigVo
 import com.tianli.dispatch.vo.QueryCurRegionRspVo
 import emu.grasscutter.net.proto.QueryCurrRegionHttpRspOuterClass.QueryCurrRegionHttpRsp
 import emu.grasscutter.net.proto.QueryRegionListHttpRspOuterClass.QueryRegionListHttpRsp
-import emu.grasscutter.net.proto.QueryRegionListHttpRspOuterClass.QueryRegionListHttpRsp.Builder
 import emu.grasscutter.net.proto.RegionInfoOuterClass.RegionInfo
 import emu.grasscutter.net.proto.RegionSimpleInfoOuterClass.RegionSimpleInfo
 import org.springframework.stereotype.Service
-import java.util.concurrent.ConcurrentHashMap
 
 @Service
-class RegionServiceImpl: RegionService {
+class RegionServiceImpl(dispatchProperties: DispatchProperties) : RegionService {
 
-    private var dispatchProperties: DispatchProperties? = null
 
-    private var regionListResponseGlobal: String? = null
-
-    private var regionListResponseCn: String? = null
+    private var regionListResponse: String? = null
 
     private var regionInfos: Map<String, RegionInfo>? = null
 
-    constructor(dispatchProperties: DispatchProperties) {
-        this.dispatchProperties = dispatchProperties
+    init {
+        val regionInfos = HashMap<String, RegionInfo>()
+        val queryRegionListHttpRspBuilder = QueryRegionListHttpRsp.newBuilder()
 
-        val regionInfos = ConcurrentHashMap<String, RegionInfo>()
-        val queryRegionListHttpRsp:Builder = QueryRegionListHttpRsp.newBuilder()
-        queryRegionListHttpRsp.clientSecretKey = ByteString.copyFrom(CryptoUtil.DISPATCH_SEED)
         dispatchProperties.gateServer.forEach {
             val regionSimpleInfo = RegionSimpleInfo.newBuilder()
                 .setName(it.name)
@@ -46,33 +39,30 @@ class RegionServiceImpl: RegionService {
                 .setSecretKey(ByteString.copyFrom(CryptoUtil.DISPATCH_SEED))
                 .build()
             regionInfos[it.name!!] = regionInfo
-            queryRegionListHttpRsp.addRegionList(regionSimpleInfo)
+            queryRegionListHttpRspBuilder.addRegionList(regionSimpleInfo)
         }
         this.regionInfos = regionInfos
+
+        //TODO: more graceful
         val customConfig = CustomConfigVo(
-            "0",
-            "true",
+            "2", //0 for CN and 2 for OS
+            "false", //true for CN and false for OS
             "false",
             "false",
             "pm|fk|add",
             "0"
         )
-        val customConfigCn:ByteArray = JSONUtil.toJsonStr(customConfig).toByteArray()
+        val customConfigCn: ByteArray = JSONUtil.toJsonStr(customConfig).toByteArray()
         CryptoUtil.xor(customConfigCn, CryptoUtil.DISPATCH_KEY!!)
-        queryRegionListHttpRsp.clientCustomConfigEncrypted = ByteString.copyFrom(customConfigCn)
-        queryRegionListHttpRsp.enableLoginPc = true
-        this.regionListResponseCn = Base64.encode(queryRegionListHttpRsp.toString().toByteArray())
-
-        customConfig.sdkenv = "2"
-        customConfig.checkdevice = "false"
-        val customConfigGlobal:ByteArray = JSONUtil.toJsonStr(customConfig).toByteArray()
-        CryptoUtil.xor(customConfigGlobal, CryptoUtil.DISPATCH_KEY!!)
-        this.regionListResponseGlobal = Base64.encode(queryRegionListHttpRsp.toString().toByteArray())
+        queryRegionListHttpRspBuilder.setClientSecretKey(ByteString.copyFrom(CryptoUtil.DISPATCH_SEED))
+            .setClientCustomConfigEncrypted(ByteString.copyFrom(customConfigCn))
+            .setEnableLoginPc(true)
+        this.regionListResponse = Base64.encode(queryRegionListHttpRspBuilder.build().toByteString().toByteArray())
     }
 
     override fun queryRegionList(params: Map<String, Any>): String {
         // todo currently supporting cn
-        return regionListResponseCn!!
+        return regionListResponse!!
     }
 
     override fun queryCurrentRegion(region: String, params: Map<String, Any>): QueryCurRegionRspVo {
